@@ -1,13 +1,11 @@
-"use client";
-
-import { Navbar, Section } from "@/components";
-import { Container } from "@/components/container";
+import { Navbar } from "@/components/navbar";
+import { Section } from "@/components/section";
 import { Footer } from "@/sections";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 
 export default function Datenschutz() {
   return (
-    <Container>
+    <Section id="datenschutz" >
       <Navbar />
       <Section>
         <VStack
@@ -62,6 +60,6 @@ export default function Datenschutz() {
         </VStack>
       </Section>
       <Footer />
-    </Container>
+    </Section>
   );
 }

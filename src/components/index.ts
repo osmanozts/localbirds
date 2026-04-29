@@ -1,8 +1,8 @@
-export * from './booking-cta';
-export * from './container';
-export * from './header';
-export * from './section';
-export * from './contact-form';
-export * from './contact-info';
-export * from './navbar';
-
+export * from "./about";
+export * from "./animations";
+export * from "./contact";
+export * from "./hero";
+export * from "./navbar";
+export * from "./process";
+export * from "./section";
+export * from "./sercices";

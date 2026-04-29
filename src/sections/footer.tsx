@@ -1,14 +1,12 @@
-"use client";
-
-import { Container, Section } from "@/components";
+import { Section } from "@/components";
 import {
   Box,
   Button,
-  Link as ChakraLink,
   Heading,
   HStack,
-  Separator,
+  Link as ChakraLink,
   SimpleGrid,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -19,33 +17,19 @@ type ULinkProps = React.ComponentProps<typeof ChakraLink>;
 const ULink: React.FC<ULinkProps> = ({ children, ...props }) => (
   <ChakraLink
     {...props}
-    position="relative"
-    color="fgMuted"
     textDecoration="none"
-    role="group"
-    transition="color .2s ease"
-    _hover={{ color: "linkHover" }}
+    borderRadius="interactive"
+    overflowWrap="anywhere"
+    _hover={{
+      color: "link.hover",
+      textDecoration: "none",
+    }}
     _focusVisible={{
       outline: "none",
       boxShadow: "focusRing",
-      borderRadius: "interactive",
     }}
   >
     {children}
-    <Box
-      as="span"
-      aria-hidden
-      position="absolute"
-      left="0"
-      right="0"
-      bottom="-2px"
-      h="2px"
-      bg="primary"
-      transformOrigin="left"
-      transform="scaleX(0)"
-      transition="transform .22s ease"
-      _groupHover={{ transform: "scaleX(1)" }}
-    />
   </ChakraLink>
 );
 
@@ -53,137 +37,193 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <Section id="footer">
-      <Container>
+    <Box as="footer">
+      <Section id="footer" >
         <SimpleGrid
-          columns={{ base: 1, md: 3 }}
+          columns={{ base: 1, sm: 2, lg: 3 }}
           gap={{ base: "8", md: "10" }}
-          py={{ base: "10", md: "14" }}
+          py={{ base: "8", md: "12", lg: "16" }}
         >
-          <VStack align="start" gap="stack.gap.sm" animation="fadeIn.normal">
+          <VStack align="start" gap="stack.sm">
             <Heading
               as="h3"
-              size="lg"
-              color="fg"
+              color="text.primary"
+              fontSize={{ base: "xl", md: "2xl" }}
               letterSpacing="-0.01em"
               lineHeight="1.1"
             >
               Local Bird
             </Heading>
-            <Text color="fgMuted">localbirds.de</Text>
-            <Text color="fgMuted">Musterstraße 1, 45127 Essen</Text>
+
+            <Text color="text.muted" lineHeight="1.7">
+              localbirds.de
+            </Text>
+
+            <Text color="text.muted" lineHeight="1.7">
+              Musterstraße 1, 45127 Essen
+            </Text>
           </VStack>
 
-          <SimpleGrid
-            columns={{ base: 2, md: 2 }}
-            gap="layout.gap"
-            animation="fadeIn.normal"
+          <VStack align="start" gap="stack.sm" color="text.muted">
+            <Text
+              fontSize="sm"
+              fontWeight="semibold"
+              letterSpacing="0.04em"
+              textTransform="uppercase"
+              mb="1"
+            >
+              Navigation
+            </Text>
+
+            <ULink color="text.muted" href="/leistungen">Leistungen</ULink>
+            <ULink color="text.muted" href="/ablauf">Ablauf</ULink>
+            <ULink color="text.muted" href="/preise">Preise</ULink>
+            <ULink color="text.muted" href="/unternehmen">Über uns</ULink>
+            <ULink color="text.muted" href="/faq">FAQ</ULink>
+          </VStack>
+
+          <VStack
+            align="start"
+            gap="stack.sm"
+            gridColumn={{ base: "auto", sm: "1 / -1", lg: "auto" }}
           >
-            <VStack align="start" gap="stack.gap.sm">
-              <Text color="fgMuted" fontSize="sm" mb="inset.xs">
-                Navigation
-              </Text>
-              <ULink href="/leistungen">Leistungen</ULink>
-              <ULink href="/ablauf">Ablauf</ULink>
-              <ULink href="/preise">Preise</ULink>
-              <ULink href="/unternehmen">Über uns</ULink>
-              <ULink href="/faq">FAQ</ULink>
-            </VStack>
-
-            <VStack align="start" gap="stack.gap.sm">
-              <Text color="fgMuted" fontSize="sm" mb="inset.xs">
-                Aktionen
-              </Text>
-              <ULink href="/termin">Termin buchen</ULink>
-              <ULink href="/kontakt">Kontakt</ULink>
-              <ULink href="/kontakt#anfahrt">Anfahrt</ULink>
-              <ULink href="/kontakt#oeffnungszeiten">Öffnungszeiten</ULink>
-            </VStack>
-          </SimpleGrid>
-
-          <VStack align="start" gap="stack.gap.sm" animation="fadeIn.normal">
-            <Heading as="h4" size="md" color="fg" letterSpacing="-0.01em">
+            <Heading
+              as="h4"
+              color="text.primary"
+              fontSize={{ base: "lg", md: "xl" }}
+              letterSpacing="-0.01em"
+              lineHeight="1.2"
+            >
               Schneller Kontakt
             </Heading>
 
-            <Text color="fg">
-              Telefon: <ULink href="tel:+49201000000">0201&nbsp;000000</ULink>
+            <Text color="text.muted" lineHeight="1.7">
+              Telefon: <ULink color="text.accent" href="tel:+49201000000">0201&nbsp;000000</ULink>
             </Text>
 
-            <Text color="fg">
+            <Text color="text.muted" lineHeight="1.7">
               E-Mail:{" "}
-              <ULink href="mailto:hallo@localbirds.de">
+              <ULink color="text.accent" href="mailto:hallo@localbirds.de">
                 hallo@localbirds.de
               </ULink>
             </Text>
 
-            <Text color="fgMuted" fontSize="sm">
+            <Text color="text.muted" fontSize="sm" lineHeight="1.7">
               Mo–Fr 08:00–18:00 · Sa 09:00–13:00
             </Text>
 
-            <HStack gap="stack.gap.sm" pt="inset.xs" flexWrap="wrap">
+            <Stack
+              direction={{ base: "column", sm: "row" }}
+              gap="stack.sm"
+              pt="1"
+              w={{ base: "100%", sm: "auto" }}
+              flexWrap="wrap"
+            >
               <Button
                 asChild
                 variant="outline"
-                h="button.height.sm"
-                px="button.paddingX"
+                h={{
+                  base: "button.height.md",
+                  md: "button.height.sm",
+                }}
+                w={{ base: "100%", sm: "auto" }}
+                px="button.px"
+                py="button.py"
                 borderRadius="button"
-                borderColor="buttonOutlineBorder"
-                _focusVisible={{ boxShadow: "focusRing", outline: "none" }}
+                borderColor="border.primary"
+                color="text.accent"
+                bg="transparent"
+                justifyContent="center"
+                _hover={{
+                  borderColor: "border.strong",
+                }}
+                _focusVisible={{
+                  boxShadow: "focusRing",
+                  outline: "none",
+                }}
               >
-                <ChakraLink href="/kontakt" _hover={{ textDecoration: "none" }}>
+                <ChakraLink
+                  href="/kontakt"
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  w="100%"
+                  h="100%"
+                  _hover={{ textDecoration: "none" }}
+                >
                   Frage stellen
                 </ChakraLink>
               </Button>
 
               <Button
                 asChild
-                h="button.height.sm"
-                px="button.paddingX"
+                h={{
+                  base: "button.height.md",
+                  md: "button.height.sm",
+                }}
+                w={{ base: "100%", sm: "auto" }}
+                px="button.px"
+                py="button.py"
                 borderRadius="button"
-                bg="buttonSolidBg"
-                color="buttonSolidFg"
+                bg="button.primary"
+                color="text.inverse"
                 fontWeight="700"
-                _hover={{ opacity: 0.92 }}
-                _active={{ transform: "scale(0.98)" }}
-                _focusVisible={{ boxShadow: "focusRing", outline: "none" }}
+                justifyContent="center"
+                _hover={{
+                  bg: "button.strong",
+                }}
+                _focusVisible={{
+                  boxShadow: "focusRing",
+                  outline: "none",
+                }}
               >
-                <ChakraLink href="/termin" _hover={{ textDecoration: "none" }}>
+                <ChakraLink
+                  href="/termin"
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  w="100%"
+                  h="100%"
+                  _hover={{ textDecoration: "none" }}
+                >
                   Termin buchen
                 </ChakraLink>
               </Button>
-            </HStack>
+            </Stack>
           </VStack>
         </SimpleGrid>
+      </Section>
 
-        <Separator borderColor="divider" />
-
+      <Box bg="bg.card">
         <HStack
           justify="space-between"
           align={{ base: "start", md: "center" }}
-          gap={{ base: "4", md: "6" }}
-          py={{ base: "6", md: "8" }}
+          gap={{ base: "4", md: "layout.gap" }}
+          px={{ base: "5", md: "6" }}
+          py={{ base: "5", md: "6" }}
           flexDir={{ base: "column", md: "row" }}
+          maxW="container.DEFAULT"
+          mx="auto"
         >
-          <Text color="fgMuted">© {year} Local Bird</Text>
+          <Text color="text.muted" fontSize="sm" lineHeight="1.7">
+            © {year} Local Bird
+          </Text>
 
           <HStack
-            gap="6"
-            color="fgMuted"
+            gap={{ base: "4", md: "layout.gap" }}
             flexWrap="wrap"
             align="center"
           >
-            <ULink href="/impressum">Impressum</ULink>
-            <ULink href="/datenschutz">Datenschutz</ULink>
+            <ULink color="text.muted" href="/impressum">Impressum</ULink>
 
-            <Text display={{ base: "none", md: "inline" }} color="fgMuted">
+            <Text color="text.muted" display={{ base: "none", md: "inline" }}>
               |
             </Text>
 
-            <Text color="fgMuted">Made with Chakra UI v3 + Next.js</Text>
+            <ULink color="text.muted" href="/datenschutz">Datenschutz</ULink>
           </HStack>
         </HStack>
-      </Container>
-    </Section>
+      </Box>
+    </Box>
   );
 }

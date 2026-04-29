@@ -4,28 +4,23 @@ import {
   FAQ,
   Footer,
   Contact,
-  Pricing,
   About,
   Services,
   Hero,
-  Gallery,
-  Testimonials,
 } from "@/sections";
+import { Stack } from "@chakra-ui/react";
 
 export default function Home() {
   return (
-    <>
+    <Stack bg="bg.primary">
       <Navbar />
       <Hero />
       <Services />
       <About />
       <Process />
-      <Gallery />
-      <Testimonials />
-      <Pricing />
       <FAQ />
       <Contact />
       <Footer />
-    </>
+    </Stack>
   );
 }

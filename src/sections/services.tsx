@@ -1,170 +1,118 @@
 "use client";
 
-import { Container, Section } from "@/components";
+import { Reveal, Section, ServiceCard, ServiceFooter, ServiceMobileSlider } from "@/components";
 import {
-  Box,
-  Card,
   Heading,
-  Link as ChakraLink,
   SimpleGrid,
-  Text,
+  Stack,
+  Text
 } from "@chakra-ui/react";
-import * as React from "react";
-import { LuBrush, LuCar, LuGauge, LuPlugZap, LuWrench } from "react-icons/lu";
+import {
+  LuCalendarCheck,
+  LuCar,
+  LuCircleGauge,
+  LuDisc3,
+  LuSearchCheck,
+  LuWrench,
+} from "react-icons/lu";
 
 const services = [
   {
     icon: LuCar,
-    title: "Inspektion",
-    desc: "Wartung nach Herstellervorgaben mit digitalem Serviceprotokoll – transparent, termintreu, herstellerkonform.",
+    title: "Wartung & Inspektion",
+    desc: "Regelmäßige Pflege und Prüfung wichtiger Fahrzeugbereiche.",
   },
   {
     icon: LuWrench,
     title: "Reparatur",
-    desc: "Mechanik, Elektronik & Karosserie aus einer Hand. Diagnose auf OEM-Niveau, Ersatzteile in Erstausrüsterqualität.",
+    desc: "Sorgfältige Arbeiten an gängigen Komponenten.",
   },
   {
-    icon: LuBrush,
-    title: "Smart-Repair",
-    desc: "Lack, Dellen, Felgen: punktgenaue Instandsetzung ohne Wertverlust – schnell, sauber, kosteneffizient.",
+    icon: LuSearchCheck,
+    title: "Diagnose",
+    desc: "Strukturierte Fehlersuche mit verständlicher Einschätzung.",
   },
   {
-    icon: LuGauge,
-    title: "HU-Vorbereitung",
-    desc: "Sicher zur Plakette: Vorabcheck inkl. Behebung relevanter Mängel. Auf Wunsch HU/AU direkt bei uns vor Ort.",
+    icon: LuDisc3,
+    title: "Bremsen",
+    desc: "Prüfung und Instandsetzung relevanter Bremskomponenten.",
   },
   {
-    icon: LuPlugZap,
-    title: "E-Mobilität",
-    desc: "Hochvolt-Service, Batterie-Check & Software-Updates – zertifiziert und herstellerübergreifend.",
+    icon: LuCircleGauge,
+    title: "Reifenservice",
+    desc: "Wechsel, Kontrolle und Beratung rund um Reifen und Räder.",
+  },
+  {
+    icon: LuCalendarCheck,
+    title: "Termin & Beratung",
+    desc: "Persönliche Abstimmung, klare Kommunikation und Transparenz.",
   },
 ];
 
-export function Services() {
-  return (
-    <Section id="leistungen">
-      <Container>
-        <Box
-          textAlign="center"
-          mb={{ base: "8", md: "12" }}
-          animation="fadeIn.normal"
-        >
-          <Heading
-            as="h2"
-            size="2xl"
-            color="fg"
-            letterSpacing="-0.02em"
-            mb={{ base: "2", md: "3" }}
-          >
-            Leistungen
-          </Heading>
 
-          <Text color="fgMuted" fontSize={{ base: "md", md: "lg" }}>
-            Präzision, Transparenz und Service auf Herstellerniveau – für
-            Fahrzeuge mit Verbrenner, Hybrid und Elektro.
-          </Text>
-        </Box>
+
+export function Services() {
+
+
+
+
+  return (
+    <Section id="leistungen" >
+      <Stack gap={{ base: "8", md: "10", lg: "12" }} align="stretch">
+        <Reveal>
+          <Stack
+            gap="stack.md"
+            textAlign={{ base: "left", md: "center" }}
+            align={{ base: "stretch", md: "center" }}
+          >
+            <Text
+              as="p"
+              color="text.accent"
+              fontSize="sm"
+              fontWeight="semibold"
+              letterSpacing="0.08em"
+              textTransform="uppercase"
+            >
+              Leistungen
+            </Text>
+
+            <Heading
+              as="h2"
+              color="text.primary"
+              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+              lineHeight={{ base: "1.12", md: "1.05" }}
+              letterSpacing="-0.02em"
+              maxW="4xl"
+            >
+              Zuverlässiger Werkstattservice für den Alltag.
+            </Heading>
+
+            <Text
+              color="text.muted"
+              fontSize={{ base: "md", md: "lg" }}
+              lineHeight="1.7"
+              maxW="3xl"
+            >
+              Wartung, Reparatur und Diagnose mit klarer Beratung, sauberer
+              Kommunikation und nachvollziehbarer Kosteneinschätzung.
+            </Text>
+          </Stack>
+        </Reveal>
+
+        <ServiceMobileSlider services={services} />
 
         <SimpleGrid
-          columns={{ base: 1, md: 2, lg: 3 }}
-          gap={{ base: "card.gap", md: "layout.gap" }}
+          display={{ base: "none", md: "grid" }}
+          columns={{ md: 2, lg: 3 }}
+          gap={{ md: "5", lg: "6" }}
         >
-          {services.map((service, index) => {
-            const Icon = service.icon;
-
-            return (
-              <Card.Root
-                key={service.title}
-                role="group"
-                variant="outline"
-                bg="bg"
-                borderColor="border"
-                rounded="card"
-                overflow="hidden"
-                position="relative"
-                boxShadow="card"
-                transition="transform .2s ease, box-shadow .2s ease, border-color .2s ease"
-                _hover={{
-                  transform: "translateY(-4px)",
-                  boxShadow: "raised",
-                  borderColor: "borderStrong",
-                }}
-                animation="fadeIn.normal"
-                style={{ animationDelay: `${index * 60}ms` }}
-                _focusWithin={{ boxShadow: "focusRing" }}
-              >
-                <Box
-                  aria-hidden
-                  position="absolute"
-                  insetInline="0"
-                  top="0"
-                  h="2px"
-                  bg="primary"
-                  transformOrigin="left"
-                  transform="scaleX(0)"
-                  transition="transform .22s ease"
-                  _groupHover={{ transform: "scaleX(1)" }}
-                />
-
-                <Card.Header
-                  display="flex"
-                  alignItems="flex-start"
-                  gap="card.gap"
-                  p="card.padding"
-                >
-                  <Box
-                    flexShrink={0}
-                    w="button.height.md"
-                    h="button.height.md"
-                    rounded="badge"
-                    bg="badgeBg"
-                    color="badgeFg"
-                    display="grid"
-                    placeItems="center"
-                    aria-hidden="true"
-                  >
-                    <Icon size={20} />
-                  </Box>
-
-                  <Box>
-                    <Heading
-                      as="h3"
-                      size="md"
-                      color="fg"
-                      lineHeight="1.2"
-                      mb="1"
-                    >
-                      {service.title}
-                    </Heading>
-
-                    <Text color="fgMuted" fontSize="sm">
-                      {service.desc}
-                    </Text>
-                  </Box>
-                </Card.Header>
-              </Card.Root>
-            );
-          })}
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} service={service} index={index} />
+          ))}
         </SimpleGrid>
 
-        <Box textAlign="center" mt={{ base: "8", md: "12" }}>
-          <Text color="fgMuted">
-            Nicht das Richtige dabei?{" "}
-            <ChakraLink
-              href="/kontakt"
-              color="link"
-              _hover={{ color: "linkHover" }}
-              _focusVisible={{
-                outline: "none",
-                boxShadow: "focusRing",
-                borderRadius: "interactive",
-              }}
-            >
-              Wir beraten Sie individuell.
-            </ChakraLink>
-          </Text>
-        </Box>
-      </Container>
+        <ServiceFooter />
+      </Stack>
     </Section>
   );
 }

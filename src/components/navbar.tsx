@@ -4,118 +4,84 @@ import {
   Box,
   Button,
   Collapsible,
-  Container,
   HStack,
+  Icon,
   IconButton,
+  Text,
   VStack,
   chakra,
 } from "@chakra-ui/react";
 import * as React from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { LuBird } from "react-icons/lu";
 
 type NavLink = {
   label: string;
   href: string;
 };
 
+type NavItemProps = {
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  variant?: "desktop" | "mobile";
+};
+
 const NAV_LINKS: NavLink[] = [
   { label: "Leistungen", href: "#leistungen" },
-  { label: "Ablauf", href: "#ablauf" },
   { label: "Werkstatt", href: "#werkstatt" },
-  { label: "Preise", href: "#preise" },
+  { label: "Ablauf", href: "#ablauf" },
   { label: "FAQ", href: "#faq" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-type NavItemProps = {
-  href: string;
-  children: React.ReactNode;
-  isActive?: boolean;
-  onClick?: () => void;
-};
-
-function usePrefersReducedMotion() {
-  const [reduceMotion, setReduceMotion] = React.useState(false);
-
-  React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(mediaQuery.matches);
-
-    update();
-
-    const handler = (event: MediaQueryListEvent) => {
-      setReduceMotion(event.matches);
-    };
-
-    mediaQuery.addEventListener?.("change", handler);
-    mediaQuery.addListener?.(handler);
-
-    return () => {
-      mediaQuery.removeEventListener?.("change", handler);
-      mediaQuery.removeListener?.(handler);
-    };
-  }, []);
-
-  return reduceMotion;
-}
-
 const NavItem: React.FC<NavItemProps> = ({
   href,
   children,
-  isActive = false,
   onClick,
+  variant = "desktop",
 }) => {
-  const reduceMotion = usePrefersReducedMotion();
+  const isMobile = variant === "mobile";
 
   return (
     <chakra.a
       href={href}
       onClick={onClick}
-      aria-current={isActive ? "page" : undefined}
-      position="relative"
       display="inline-flex"
       alignItems="center"
-      justifyContent="center"
-      px="button.paddingX"
-      py="input.paddingY"
-      color={isActive ? "fg" : "fgMuted"}
-      fontWeight={isActive ? "600" : "500"}
+      justifyContent={isMobile ? "flex-start" : "center"}
+      w={isMobile ? "100%" : "auto"}
+      minH={isMobile ? "button.height.md" : "auto"}
+      px={isMobile ? "button.px" : "3"}
+      py={isMobile ? "button.py" : "2"}
+      color="text.primary"
+      fontSize="sm"
+      fontWeight="500"
       lineHeight="1"
       textDecoration="none"
-      transition={reduceMotion ? "none" : "color .18s ease-in-out"}
-      _hover={{ color: "fg" }}
+      borderRadius="interactive"
+      transition="color 0.2s ease, background-color 0.2s ease"
+      _hover={{
+        color: "link.hover",
+        bg: isMobile ? "bg.primary" : "transparent",
+      }}
       _focusVisible={{
         outline: "none",
         boxShadow: "focusRing",
-        borderRadius: "interactive",
       }}
     >
       {children}
-
-      <Box
-        aria-hidden
-        position="absolute"
-        left="16px"
-        right="16px"
-        bottom="6px"
-        h="2px"
-        bg={isActive ? "primary" : "divider"}
-        transformOrigin="left"
-        transform={isActive ? "scaleX(1)" : "scaleX(0)"}
-        transition={reduceMotion ? "none" : "transform .2s ease"}
-        _groupHover={{ transform: "scaleX(1)" }}
-      />
     </chakra.a>
   );
 };
 
-export const Navbar: React.FC = () => {
+export function Navbar() {
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const reduceMotion = usePrefersReducedMotion();
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -125,99 +91,104 @@ export const Navbar: React.FC = () => {
   const handleCloseMenu = () => setOpen(false);
 
   return (
-    <Box
-      as="header"
-      position="sticky"
-      top="0"
-      zIndex={10}
-      borderBottom="1px solid"
-      borderColor={scrolled ? "border" : "transparent"}
-      boxShadow={scrolled ? "card" : "none"}
-      bg={scrolled ? "rgba(255, 255, 255, 0.78)" : "transparent"}
-      backdropFilter={scrolled ? "saturate(180%) blur(12px)" : "none"}
-      animation={reduceMotion ? "none" : "fadeIn.normal"}
-      transition={
-        reduceMotion
-          ? "none"
-          : "background-color .18s ease-in-out, border-color .18s ease-in-out, box-shadow .18s ease-in-out, backdrop-filter .18s ease-in-out"
-      }
-    >
-      <Container maxW="container.default" px="section.paddingX" py="inset.sm">
+    <Box as="header" position="sticky" top="0" zIndex="overlay">
+      <Box
+        aria-hidden="true"
+        position="absolute"
+        inset="0"
+        bg="bg.card"
+        borderBottomWidth="1px"
+        borderColor="divider"
+        boxShadow="card"
+        opacity={scrolled || open ? 1 : 0}
+        backdropFilter="blur(var(--chakra-blurs-glass))"
+        transition="opacity 0.28s ease"
+        pointerEvents="none"
+      />
+
+      <Box
+        position="relative"
+        zIndex={1}
+        maxW="container.DEFAULT"
+        mx="auto"
+        px={{ base: "4", md: "6" }}
+        py={{ base: "2", md: "2" }}
+      >
         <HStack
           justify="space-between"
           align="center"
-          gap="layout.gap"
-          minH="button.height.lg"
+          gap={{ base: "4", md: "6" }}
+          minH={{ base: "button.height.md", md: "button.height.lg" }}
         >
-          <chakra.a
-            href="/"
-            aria-label="Startseite"
-            color="fg"
-            fontFamily="heading"
-            fontWeight="700"
-            letterSpacing="-0.02em"
-            lineHeight="1"
-            textDecoration="none"
-            _focusVisible={{
-              outline: "none",
-              boxShadow: "focusRing",
-              borderRadius: "interactive",
-            }}
-          >
-            Local Birds
-          </chakra.a>
+          <HStack gap="2" color="text.accent" minW={0} flex={1}>
+            <Icon as={LuBird} boxSize={{ base: "icon.md", md: "icon.lg" }} />
+            <chakra.a
+              href="/"
+              color="text.primary"
+              fontFamily="heading"
+              fontWeight="700"
+              fontSize={{ base: "md", md: "lg" }}
+              letterSpacing="-0.02em"
+              lineHeight="1"
+              textDecoration="none"
+              borderRadius="interactive"
+              whiteSpace="nowrap"
+              _focusVisible={{
+                outline: "none",
+                boxShadow: "focusRing",
+              }}
+            >
+              Local Birds
+            </chakra.a>
+          </HStack>
 
           <HStack
             as="nav"
-            display={{ base: "none", md: "flex" }}
-            gap="stack.gap.sm"
+            display={{ base: "none", lg: "flex" }}
+            gap={{ lg: "2", xl: "4" }}
             fontSize="sm"
+            aria-label="Hauptnavigation"
+            flex={1}
+            justifyContent="space-between"
           >
             {NAV_LINKS.map((link) => (
               <NavItem key={link.href} href={link.href}>
-                {link.label}
+                <Text
+                  as="span"
+                  borderBottomWidth="1px"
+                  borderColor="transparent"
+                  transition="border-color 0.2s ease"
+                  _hover={{
+                    borderColor: "border.strong",
+                  }}
+                >
+                  {link.label}
+                </Text>
               </NavItem>
             ))}
           </HStack>
 
-          <HStack gap="stack.gap.sm">
-            <Button
-              display={{ base: "none", md: "inline-flex" }}
-              bg="buttonSolidBg"
-              color="buttonSolidFg"
-              h="buttonHeightMd"
-              px="button.paddingX"
-              borderRadius="button"
-              fontWeight="600"
-              _hover={{ opacity: 0.92 }}
-              _active={{ transform: "scale(0.98)" }}
-              _focusVisible={{ boxShadow: "focusRing", outline: "none" }}
-              transition={
-                reduceMotion
-                  ? "none"
-                  : "transform .12s ease-in-out, opacity .12s ease-in-out"
-              }
-            >
-              Termin buchen
-            </Button>
-
-            <IconButton
-              aria-label={open ? "Navigation schließen" : "Navigation öffnen"}
-              display={{ base: "inline-flex", md: "none" }}
-              variant="ghost"
-              color="fg"
-              minW="buttonHeightMd"
-              h="buttonHeightMd"
-              borderRadius="button"
-              onClick={() => setOpen((prev) => !prev)}
-              _hover={{ bg: "buttonSubtleBg", color: "buttonSubtleFg" }}
-              _active={{ transform: "scale(0.96)" }}
-              _focusVisible={{ boxShadow: "focusRing", outline: "none" }}
-              transition={reduceMotion ? "none" : "transform .12s ease-in-out"}
-            >
-              {open ? <FiX size={20} /> : <FiMenu size={20} />}
-            </IconButton>
-          </HStack>
+          <IconButton
+            aria-label={open ? "Navigation schließen" : "Navigation öffnen"}
+            aria-expanded={open}
+            display={{ base: "inline-flex", lg: "none" }}
+            variant="ghost"
+            color="text.primary"
+            minW="button.height.md"
+            h="button.height.md"
+            borderRadius="button"
+            onClick={() => setOpen((prev) => !prev)}
+            _hover={{
+              bg: "bg.card",
+              color: "link.hover",
+            }}
+            _focusVisible={{
+              boxShadow: "focusRing",
+              outline: "none",
+            }}
+          >
+            <Icon as={open ? FiX : FiMenu} boxSize="icon.md" />
+          </IconButton>
         </HStack>
 
         <Collapsible.Root
@@ -226,53 +197,68 @@ export const Navbar: React.FC = () => {
           unmountOnExit
         >
           <Collapsible.Content>
-            <Box
-              display={{ md: "none" }}
-              pt="inset.sm"
-              pb="inset.md"
-              animation={reduceMotion ? "none" : "fadeIn.fast"}
-            >
+            <Box display={{ lg: "none" }} pt="inset.sm" pb="inset.md">
               <VStack
                 as="nav"
                 align="stretch"
-                gap="stack.gap.sm"
-                animation={reduceMotion ? "none" : "slideDown.normal"}
+                gap="stack.sm"
+                aria-label="Mobile Navigation"
               >
                 {NAV_LINKS.map((link) => (
                   <NavItem
                     key={link.href}
                     href={link.href}
                     onClick={handleCloseMenu}
+                    variant="mobile"
                   >
                     {link.label}
                   </NavItem>
                 ))}
 
                 <Box
-                  borderTop="1px solid"
+                  borderTopWidth="1px"
                   borderColor="divider"
                   mt="inset.sm"
                   pt="divider.spacing"
                 >
                   <Button
+                    asChild
                     w="full"
-                    bg="buttonSolidBg"
-                    color="buttonSolidFg"
-                    h="buttonHeightMd"
+                    bg="button.primary"
+                    color="text.inverse"
+                    h="button.height.md"
+                    px="button.px"
+                    py="button.py"
                     borderRadius="button"
-                    fontWeight="600"
-                    _hover={{ opacity: 0.92 }}
-                    _active={{ transform: "scale(0.98)" }}
-                    _focusVisible={{ boxShadow: "focusRing", outline: "none" }}
+                    fontWeight="700"
+                    _hover={{
+                      bg: "button.strong",
+                    }}
+                    _focusVisible={{
+                      boxShadow: "focusRing",
+                      outline: "none",
+                    }}
                   >
-                    Termin buchen
+                    <chakra.a
+                      href="/termin"
+                      onClick={handleCloseMenu}
+                      display="inline-flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      w="100%"
+                      h="100%"
+                      textDecoration="none"
+                      _hover={{ textDecoration: "none" }}
+                    >
+                      Termin buchen
+                    </chakra.a>
                   </Button>
                 </Box>
               </VStack>
             </Box>
           </Collapsible.Content>
         </Collapsible.Root>
-      </Container>
+      </Box>
     </Box>
   );
-};
+}

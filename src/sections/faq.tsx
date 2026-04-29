@@ -1,14 +1,15 @@
 "use client";
 
-import { Container, Section } from "@/components";
+import { Reveal, Section } from "@/components";
 import {
   Box,
   Card,
-  Link as ChakraLink,
+  chakra,
   Collapsible,
   Heading,
+  Link as ChakraLink,
+  Stack,
   Text,
-  chakra,
 } from "@chakra-ui/react";
 
 type Faq = { q: string; a: string };
@@ -17,14 +18,6 @@ const faqs: Faq[] = [
   {
     q: "Wie schnell bekomme ich einen Termin?",
     a: "In der Regel innerhalb von 24 Stunden. Online buchen oder telefonisch – wir bestätigen den Termin und halten Sie per SMS/E-Mail auf dem Laufenden.",
-  },
-  {
-    q: "Bleibt die Herstellergarantie erhalten?",
-    a: "Ja. Wir arbeiten strikt nach Herstellervorgaben und dokumentieren alle Schritte digital, inklusive Serviceeinträgen – damit Ihre Garantie bestehen bleibt.",
-  },
-  {
-    q: "Gibt es Ersatzfahrzeuge?",
-    a: "Auf Anfrage stellen wir Ersatzfahrzeuge. Alternativ bieten wir Hol- & Bringservice im Umkreis an – einfach bei der Buchung auswählen.",
   },
   {
     q: "Wie werden Kosten kommuniziert?",
@@ -38,83 +31,79 @@ const faqs: Faq[] = [
 
 export function FAQ() {
   return (
-    <Section id="faq">
-      <Container>
-        <Box
-          textAlign="center"
-          mb={{ base: "8", md: "12" }}
-          animation="fadeIn.normal"
+    <Section id="faq" >
+      <Reveal delay={100}>
+        <Stack
+          gap={{ base: "2", md: "3" }}
+          textAlign={{ base: "left", md: "center" }}
+          align={{ base: "flex-start", md: "center" }}
+          mb={{ base: "8", md: "10", lg: "12" }}
         >
           <Box
             as="span"
             display="inline-flex"
             alignItems="center"
             justifyContent="center"
-            bg="badgeBg"
-            color="accent"
-            px="input.paddingX"
-            py="inset.xs"
+            bg="bg.accent"
+            color="text.inverse"
+            px="3"
+            py="1"
             rounded="badge"
             fontSize="xs"
             fontWeight="700"
             letterSpacing="0.06em"
-            mb="3"
           >
             FRAGEN & ANTWORTEN
           </Box>
 
           <Heading
             as="h2"
-            size="2xl"
-            color="fg"
+            color="text.primary"
+            fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+            lineHeight={{ base: "1.12", md: "1.05" }}
             letterSpacing="-0.02em"
-            mb={{ base: "2", md: "3" }}
+            maxW="4xl"
           >
             Wir hören zu. Und liefern klare Antworten.
           </Heading>
 
-          <Text color="fgMuted" fontSize={{ base: "md", md: "lg" }}>
+          <Text
+            color="text.muted"
+            fontSize={{ base: "md", md: "lg" }}
+            lineHeight="1.7"
+            maxW="3xl"
+          >
             Die wichtigsten Fragen rund um Termin, Garantie und Leistungen –
             kurz, verständlich und transparent.
           </Text>
-        </Box>
+        </Stack>
+      </Reveal>
 
-        <Box
-          role="list"
-          display="grid"
-          gap={{ base: "card.gap", md: "5" }}
-          maxW="container.default"
-          mx="auto"
-        >
-          {faqs.map((item, index) => (
+      <Box
+        role="list"
+        display="grid"
+        gap={{ base: "3", md: "5" }}
+        maxW="container.DEFAULT"
+        mx="auto"
+      >
+        {faqs.map((item, index) => (
+          <Reveal delay={200 + 100 * index}>
             <Card.Root
               key={item.q}
-              role="group"
-              variant="outline"
-              bg="bg"
-              borderColor="border"
+              role="listitem"
+              bg="bg.card"
               rounded="card"
               overflow="hidden"
               boxShadow="card"
-              transition="box-shadow .2s ease, border-color .2s ease, transform .2s ease"
+              borderWidth={0}
               _hover={{
                 boxShadow: "raised",
-                transform: "translateY(-2px)",
-                borderColor: "border",
               }}
-              animation="fadeIn.normal"
-              style={{ animationDelay: `${index * 60}ms` }}
-              _focusWithin={{ boxShadow: "focusRing" }}
+              _focusWithin={{
+                boxShadow: "focusRing",
+              }}
             >
-              <Box
-                aria-hidden
-                h="2px"
-                bg="primary"
-                transformOrigin="left"
-                transform="scaleX(0.6)"
-                transition="transform .25s ease"
-                _groupHover={{ transform: "scaleX(1)" }}
-              />
+              <Box aria-hidden="true" h="1" bg="bg.accent" />
 
               <Collapsible.Root unmountOnExit>
                 <Collapsible.Trigger asChild>
@@ -125,61 +114,59 @@ export function FAQ() {
                     textAlign="left"
                     alignItems="center"
                     justifyContent="space-between"
-                    gap="card.gap"
-                    px="card.padding"
-                    py="card.padding"
-                    color="fg"
+                    gap={{ base: "3", md: "card.gap" }}
+                    p={{ base: "5", md: "card.padding" }}
+                    color="text.primary"
                     _focusVisible={{
                       outline: "none",
                       boxShadow: "focusRing",
                     }}
                   >
-                    <Heading as="h3" size="md" lineHeight="1.2">
+                    <Heading
+                      as="h3"
+                      color="text.primary"
+                      fontSize={{ base: "md", md: "lg" }}
+                      lineHeight="1.25"
+                      letterSpacing="-0.01em"
+                      overflowWrap="break-word"
+                      minW={0}
+                    >
                       {item.q}
                     </Heading>
 
                     <Box
                       as="span"
-                      aria-hidden
-                      w="6"
-                      h="6"
-                      position="relative"
+                      aria-hidden="true"
+                      boxSize={{
+                        base: "button.height.sm",
+                        md: "button.height.md",
+                      }}
+                      rounded="badge"
+                      bg="button.primary"
+                      color="text.inverse"
+                      display="grid"
+                      placeItems="center"
                       flexShrink={0}
+                      fontWeight="700"
+                      fontSize={{ base: "md", md: "lg" }}
+                      lineHeight="1"
                     >
-                      <Box
-                        position="absolute"
-                        inset="0"
-                        m="auto"
-                        w="12px"
-                        h="2px"
-                        bg="fg"
-                        rounded="full"
-                        transition="background-color .2s ease"
-                      />
-                      <Box
-                        position="absolute"
-                        inset="0"
-                        m="auto"
-                        w="2px"
-                        h="12px"
-                        bg="fg"
-                        rounded="full"
-                        transformOrigin="center"
-                        transition="transform .2s ease, opacity .2s ease"
-                        _open={{ transform: "scaleY(0)", opacity: 0 }}
-                      />
+                      +
                     </Box>
                   </chakra.button>
                 </Collapsible.Trigger>
 
                 <Collapsible.Content>
                   <Box
-                    px="card.padding"
+                    px={{ base: "5", md: "card.padding" }}
                     pb={{ base: "5", md: "6" }}
-                    pt="0"
-                    animation="slideDown.normal"
                   >
-                    <Text color="fgMuted" fontSize={{ base: "sm", md: "md" }}>
+                    <Text
+                      color="text.muted"
+                      fontSize={{ base: "sm", md: "md" }}
+                      lineHeight="1.7"
+                      maxW="4xl"
+                    >
                       {item.a}
                     </Text>
 
@@ -188,58 +175,57 @@ export function FAQ() {
                         href="/kontakt"
                         display="inline-flex"
                         alignItems="center"
-                        gap="stack.gap.sm"
-                        color="link"
+                        justifyContent="center"
+                        minH="button.height.sm"
+                        gap="stack.sm"
+                        color="link.primary"
                         fontWeight="600"
                         textDecoration="none"
-                        role="group"
-                        _hover={{ color: "linkHover" }}
+                        borderRadius="interactive"
+                        _hover={{
+                          color: "link.hover",
+                        }}
                         _focusVisible={{
                           outline: "none",
                           boxShadow: "focusRing",
-                          borderRadius: "interactive",
                         }}
                       >
                         Weitere Frage stellen
-                        <Box
-                          as="span"
-                          aria-hidden
-                          display="block"
-                          h="2px"
-                          w="6"
-                          bg="primary"
-                          transformOrigin="left"
-                          transform="scaleX(0)"
-                          transition="transform .22s ease"
-                          _groupHover={{ transform: "scaleX(1)" }}
-                        />
                       </ChakraLink>
                     </Box>
                   </Box>
                 </Collapsible.Content>
               </Collapsible.Root>
             </Card.Root>
-          ))}
-        </Box>
+          </Reveal>
+        ))}
+      </Box>
 
-        <Box textAlign="center" mt={{ base: "8", md: "12" }}>
-          <Text color="fgMuted">
+      <Reveal delay={400}>
+        <Box
+          textAlign={{ base: "left", md: "center" }}
+          mt={{ base: "8", md: "12" }}
+        >
+          <Text color="text.muted" fontSize={{ base: "sm", md: "md" }} lineHeight="1.7">
             Nicht fündig geworden?{" "}
             <ChakraLink
               href="/kontakt"
-              color="link"
-              _hover={{ color: "linkHover" }}
+              color="link.primary"
+              borderRadius="interactive"
+              fontWeight="600"
+              _hover={{
+                color: "link.hover",
+              }}
               _focusVisible={{
                 outline: "none",
                 boxShadow: "focusRing",
-                borderRadius: "interactive",
               }}
             >
               Wir sind gerne persönlich für Sie da.
             </ChakraLink>
           </Text>
         </Box>
-      </Container>
+      </Reveal>
     </Section>
   );
 }
