@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { ChakraThemeProvider } from "./chakra-theme-provider";
 import "./globals.css";
+import { Navbar } from "@/components";
+import { Stack } from "@chakra-ui/react";
+import { BottomLine, Footer } from "@/sections";
 
 export const metadata: Metadata = {
   title: "Local Bird KFZ Werkstatt | localbirds.de",
@@ -16,8 +19,14 @@ export default function RootLayout({
   return (
     <html lang="de" suppressHydrationWarning>
       <body>
-        <ChakraThemeProvider>{children}</ChakraThemeProvider>
+        <ChakraThemeProvider>
+          <Stack bg="bg.primary">
+            <Navbar />
+            {children}
+            <BottomLine />
+          </Stack>
+        </ChakraThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }

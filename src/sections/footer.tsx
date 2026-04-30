@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Heading,
-  HStack,
   Link as ChakraLink,
   SimpleGrid,
   Stack,
@@ -193,37 +192,6 @@ export function Footer() {
           </VStack>
         </SimpleGrid>
       </Section>
-
-      <Box bg="bg.card">
-        <HStack
-          justify="space-between"
-          align={{ base: "start", md: "center" }}
-          gap={{ base: "4", md: "layout.gap" }}
-          px={{ base: "5", md: "6" }}
-          py={{ base: "5", md: "6" }}
-          flexDir={{ base: "column", md: "row" }}
-          maxW="container.DEFAULT"
-          mx="auto"
-        >
-          <Text color="text.muted" fontSize="sm" lineHeight="1.7">
-            © {year} Local Bird
-          </Text>
-
-          <HStack
-            gap={{ base: "4", md: "layout.gap" }}
-            flexWrap="wrap"
-            align="center"
-          >
-            <ULink color="text.muted" href="/impressum">Impressum</ULink>
-
-            <Text color="text.muted" display={{ base: "none", md: "inline" }}>
-              |
-            </Text>
-
-            <ULink color="text.muted" href="/datenschutz">Datenschutz</ULink>
-          </HStack>
-        </HStack>
-      </Box>
     </Box>
   );
 }

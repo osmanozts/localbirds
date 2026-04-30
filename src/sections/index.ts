@@ -1,8 +1,9 @@
-export { About } from "./about";
-export { Contact } from "./contact";
-export { FAQ } from "./faq";
-export { Footer } from "./footer";
-export { Hero } from "./hero";
-export { Pricing } from "./pricing";
-export { Process } from "./process";
-export { Services } from "./services";
+export * from "./about";
+export * from "./bottom-line";
+export * from "./contact";
+export * from "./faq";
+export * from "./footer";
+export * from "./hero";
+export * from "./pricing";
+export * from "./process";
+export * from "./services";
