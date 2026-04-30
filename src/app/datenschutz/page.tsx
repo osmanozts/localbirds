@@ -22,10 +22,11 @@ const privacySections = [
   {
     title: "3. Hosting und Server-Logfiles",
     text: [
-      "Beim Aufruf dieser Website werden durch den Hosting-Anbieter technisch erforderliche Daten verarbeitet, um die Website sicher und stabil bereitzustellen.",
-      "Zu diesen Daten können insbesondere die IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Seite oder Datei, die übertragene Datenmenge, Browsertyp und Browserversion, Betriebssystem, Referrer-URL sowie der Hostname des zugreifenden Rechners gehören.",
-      "Die Verarbeitung dieser Daten erfolgt zur technischen Bereitstellung der Website, zur Systemsicherheit, zur Fehleranalyse und zur Missbrauchserkennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren und zuverlässigen Betrieb dieser Website.",
+      "Diese Website wird bei Vercel Inc. gehostet. Beim Aufruf dieser Website werden durch den Hosting-Anbieter technisch erforderliche Daten verarbeitet, um die Website sicher, stabil und zuverlässig bereitzustellen.",
+      "Zu diesen Daten können insbesondere die IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Seite oder Datei, die übertragene Datenmenge, Browsertyp und Browserversion, Betriebssystem, Referrer-URL, technische Verbindungsdaten sowie der Hostname des zugreifenden Rechners gehören.",
+      "Die Verarbeitung dieser Daten erfolgt zur technischen Bereitstellung der Website, zur Systemsicherheit, zur Fehleranalyse und zur Missbrauchserkennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren, zuverlässigen und fehlerfreien Betrieb dieser Website.",
       "Die Speicherdauer der Logdaten richtet sich nach den technischen und sicherheitsbezogenen Vorgaben des eingesetzten Hosting-Anbieters. Logdaten werden nur so lange gespeichert, wie dies für die genannten Zwecke erforderlich ist.",
+      "Soweit Vercel als Dienstleister personenbezogene Daten in unserem Auftrag verarbeitet, erfolgt dies auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.",
     ],
   },
   {
@@ -34,6 +35,7 @@ const privacySections = [
       "Wenn Sie uns über das Kontaktformular kontaktieren, verarbeiten wir die von Ihnen eingegebenen Daten. Dazu gehören insbesondere Ihr Name, Ihre E-Mail-Adresse und der Inhalt Ihrer Nachricht.",
       "Die Daten werden ausschließlich verwendet, um Ihre Anfrage zu bearbeiten, Rückfragen zu stellen und mit Ihnen Kontakt aufzunehmen.",
       "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit einer möglichen Beauftragung, Terminvereinbarung oder sonstigen vorvertraglichen Maßnahme zusammenhängt. In allen übrigen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Bearbeitung eingehender Anfragen.",
+      "Sofern für die technische Übermittlung oder Bearbeitung des Kontaktformulars Dienstleister eingesetzt werden, erfolgt deren Einbindung nur, soweit dies für die Bearbeitung Ihrer Anfrage oder den sicheren Betrieb der Website erforderlich ist.",
       "Die im Kontaktformular übermittelten Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet wurde und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
     ],
   },
@@ -50,7 +52,8 @@ const privacySections = [
     title: "6. Cookies, lokale Speicherung und Tracking",
     text: [
       "Diese Website verwendet keine Analyse- oder Marketing-Cookies und keine Tracking-Technologien zur Auswertung des Nutzerverhaltens.",
-      "Soweit technisch notwendige Informationen im Browser gespeichert werden, dienen diese ausschließlich der Bereitstellung grundlegender Website-Funktionen, zum Beispiel der Darstellung oder Bedienbarkeit der Website.",
+      "Nach unserer derzeitigen technischen Ausgestaltung setzt diese Website keine Cookies und speichert keine Informationen im Local Storage oder Session Storage des Browsers zu Analyse-, Marketing- oder Trackingzwecken.",
+      "Sollte eine technisch notwendige Speicherung im Browser erforderlich sein, erfolgt diese ausschließlich zur Bereitstellung grundlegender Website-Funktionen, zum Beispiel der Darstellung, Sicherheit oder Bedienbarkeit der Website.",
       "Eine Auswertung zu Werbe-, Analyse- oder Profilingzwecken findet nicht statt.",
     ],
   },
@@ -65,6 +68,7 @@ const privacySections = [
     title: "8. Empfänger und Dienstleister",
     text: [
       "Personenbezogene Daten können durch technische Dienstleister verarbeitet werden, die uns beim Betrieb der Website, beim Hosting, beim Versand von Kontaktformularen oder bei der E-Mail-Kommunikation unterstützen.",
+      "Zu den eingesetzten technischen Dienstleistern gehört insbesondere der Hosting-Anbieter Vercel Inc.",
       "Soweit erforderlich, erfolgt die Einbindung solcher Dienstleister auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.",
       "Eine Weitergabe personenbezogener Daten an Dritte erfolgt nur, wenn dies zur Bearbeitung Ihrer Anfrage erforderlich ist, eine gesetzliche Pflicht besteht oder Sie eingewilligt haben.",
     ],
@@ -73,7 +77,8 @@ const privacySections = [
     title: "9. Drittlandübermittlungen",
     text: [
       "Eine Übermittlung personenbezogener Daten in Staaten außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums findet nur statt, sofern dies zur Nutzung eingesetzter technischer Dienstleister erforderlich ist und die datenschutzrechtlichen Voraussetzungen hierfür vorliegen.",
-      "Sofern Dienste mit Sitz oder technischer Infrastruktur außerhalb der EU oder des EWR eingesetzt werden, achten wir auf geeignete Garantien im Sinne der DSGVO.",
+      "Da Vercel Inc. ein Anbieter mit Sitz in den USA ist, kann eine Verarbeitung personenbezogener Daten in den USA nicht ausgeschlossen werden.",
+      "Soweit hierfür erforderlich, erfolgt eine Übermittlung auf Grundlage geeigneter Garantien im Sinne der DSGVO, insbesondere auf Grundlage von Standardvertragsklauseln gemäß Art. 46 DSGVO, sofern kein Angemessenheitsbeschluss oder keine andere geeignete Rechtsgrundlage greift.",
     ],
   },
   {
@@ -85,7 +90,14 @@ const privacySections = [
     ],
   },
   {
-    title: "11. Ihre Rechte",
+    title: "11. Datenschutzbeauftragter",
+    text: [
+      "Ein Datenschutzbeauftragter ist nicht bestellt, da nach unserer derzeitigen Einschätzung keine gesetzliche Pflicht zur Benennung eines Datenschutzbeauftragten besteht.",
+      "Bei Fragen zum Datenschutz können Sie sich jederzeit an die oben genannten Kontaktdaten wenden.",
+    ],
+  },
+  {
+    title: "12. Ihre Rechte",
     text: [
       "Sie haben im Rahmen der gesetzlichen Voraussetzungen das Recht auf Auskunft über die zu Ihrer Person gespeicherten Daten.",
       "Außerdem haben Sie das Recht auf Berichtigung unrichtiger Daten, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen.",
@@ -94,14 +106,15 @@ const privacySections = [
     ],
   },
   {
-    title: "12. Beschwerderecht bei einer Aufsichtsbehörde",
+    title: "13. Beschwerderecht bei einer Aufsichtsbehörde",
     text: [
       "Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt.",
       "Für Nordrhein-Westfalen ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen zuständig.",
+      "Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen\nKavalleriestraße 2–4\n40213 Düsseldorf\nWebsite: https://www.ldi.nrw.de",
     ],
   },
   {
-    title: "13. SSL- beziehungsweise TLS-Verschlüsselung",
+    title: "14. SSL- beziehungsweise TLS-Verschlüsselung",
     text: [
       "Diese Website nutzt aus Sicherheitsgründen eine verschlüsselte Verbindung.",
       "Sie erkennen eine verschlüsselte Verbindung daran, dass die Adresszeile des Browsers mit „https://“ beginnt.",
@@ -109,13 +122,13 @@ const privacySections = [
     ],
   },
   {
-    title: "14. Keine automatisierte Entscheidungsfindung",
+    title: "15. Keine automatisierte Entscheidungsfindung",
     text: [
       "Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt.",
     ],
   },
   {
-    title: "15. Aktualität dieser Datenschutzerklärung",
+    title: "16. Aktualität dieser Datenschutzerklärung",
     text: [
       "Diese Datenschutzerklärung gilt für den aktuellen Stand dieser Website.",
       "Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn sich technische, rechtliche oder organisatorische Änderungen ergeben.",
@@ -257,15 +270,6 @@ export default function Datenschutz() {
                 </Box>
               ))}
             </VStack>
-
-            <Box px={{ base: "6", md: "8" }} py={{ base: "6", md: "8" }}>
-              <Text color="text.muted" fontSize="sm" lineHeight="1.7">
-                Hinweis: Die Angaben zu Hosting, E-Mail-Anbieter und technischem
-                Versand des Kontaktformulars sollten mit den tatsächlich
-                eingesetzten Dienstleistern abgeglichen und bei Bedarf
-                konkretisiert werden.
-              </Text>
-            </Box>
           </Box>
         </Stack>
       </Box>
