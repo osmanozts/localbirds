@@ -2,14 +2,13 @@
 
 import {
   Box,
-  Button,
   Collapsible,
   HStack,
   Icon,
   IconButton,
   Text,
   VStack,
-  chakra,
+  chakra
 } from "@chakra-ui/react";
 import * as React from "react";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -172,20 +171,11 @@ export function Navbar() {
             aria-label={open ? "Navigation schließen" : "Navigation öffnen"}
             aria-expanded={open}
             display={{ base: "inline-flex", lg: "none" }}
-            variant="ghost"
             color="text.primary"
             minW="button.height.md"
             h="button.height.md"
             borderRadius="button"
             onClick={() => setOpen((prev) => !prev)}
-            _hover={{
-              bg: "bg.card",
-              color: "link.hover",
-            }}
-            _focusVisible={{
-              boxShadow: "focusRing",
-              outline: "none",
-            }}
           >
             <Icon as={open ? FiX : FiMenu} boxSize="icon.md" />
           </IconButton>
@@ -214,46 +204,6 @@ export function Navbar() {
                     {link.label}
                   </NavItem>
                 ))}
-
-                <Box
-                  borderTopWidth="1px"
-                  borderColor="divider"
-                  mt="inset.sm"
-                  pt="divider.spacing"
-                >
-                  <Button
-                    asChild
-                    w="full"
-                    bg="button.primary"
-                    color="text.inverse"
-                    h="button.height.md"
-                    px="button.px"
-                    py="button.py"
-                    borderRadius="button"
-                    fontWeight="700"
-                    _hover={{
-                      bg: "button.strong",
-                    }}
-                    _focusVisible={{
-                      boxShadow: "focusRing",
-                      outline: "none",
-                    }}
-                  >
-                    <chakra.a
-                      href="/termin"
-                      onClick={handleCloseMenu}
-                      display="inline-flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      w="100%"
-                      h="100%"
-                      textDecoration="none"
-                      _hover={{ textDecoration: "none" }}
-                    >
-                      Termin buchen
-                    </chakra.a>
-                  </Button>
-                </Box>
               </VStack>
             </Box>
           </Collapsible.Content>
