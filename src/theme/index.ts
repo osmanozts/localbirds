@@ -135,11 +135,11 @@ const customConfig = defineConfig({
       },
 
       shadows: {
-        xs: { value: "0 1px 2px rgba(37, 99, 235, 0.35)" },
-        sm: { value: "0 1px 2px rgba(37, 99, 235, 0.35)" },
-        md: { value: "0 4px 16px rgba(37, 99, 235, 0.35)" },
-        lg: { value: "0 10px 30px rgba(37, 99, 235, 0.35)" },
-        ring: { value: "0 0 0 3px rgba(37, 99, 235, 0.35)" },
+        xs: { value: "0 1px 2px rgba(136, 23, 44, 0.25)" },
+        sm: { value: "0 1px 2px rgba(136, 23, 44, 0.25)" },
+        md: { value: "0 4px 16px rgba(136, 23, 44, 0.24)" },
+        lg: { value: "0 10px 30px rgba(136, 23, 44, 0.22)" },
+        ring: { value: "0 0 0 3px rgba(136, 23, 44, 0.32)" },
 
         card: { value: "{shadows.sm}" },
         raised: { value: "{shadows.md}" },
@@ -161,7 +161,7 @@ const customConfig = defineConfig({
       colors: {
         bg: {
           primary: { value: "#ffffff" },
-          accent: { value: "#2563EB" },
+          accent: { value: "#88172C" },
           card: { value: "#EFEDEA" },
           inverse: { value: "#000000" },
           glass: { value: "rgba(255,255,255,0.14)" },
@@ -170,27 +170,27 @@ const customConfig = defineConfig({
 
         text: {
           primary: { value: "#18181B" },
-          accent: { value: "#2563EB" },
+          accent: { value: "#88172C" },
           muted: { value: "#6B7280" },
           inverse: { value: "#ffffff" },
         },
 
         button: {
-          primary: { value: "#2563EB" },
-          strong: { value: "#1E40AF" },
+          primary: { value: "#88172C" },
+          strong: { value: "#5F0F1F" },
           glass: {
             value: "rgba(255,255,255,0.14)",
           },
         },
 
         link: {
-          primary: { value: "#2563EB" },
-          hover: { value: "#1E40AF" },
+          primary: { value: "#88172C" },
+          hover: { value: "#5F0F1F" },
         },
 
         border: {
-          primary: { value: "#2563EB" },
-          strong: { value: "#1E40AF" },
+          primary: { value: "#88172C" },
+          strong: { value: "#5F0F1F" },
           inverse: { value: "rgba(255,255,255,0.22)" },
           inverseStrong: { value: "rgba(255,255,255,0.34)" },
         },

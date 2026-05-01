@@ -161,7 +161,7 @@ export function HeroIllustration() {
                     height="138"
                     rx="16"
                     fill="bg.glass"
-                    stroke="bg.card"
+                    stroke="bg.accent"
                     strokeWidth="2"
                 />
                 <chakra.path
@@ -198,7 +198,7 @@ export function HeroIllustration() {
 
                     <chakra.path
                         d="M432 28V84"
-                        stroke="bg.card"
+                        stroke="bg.accent"
                         strokeWidth="4"
                         strokeLinecap="round"
                     />

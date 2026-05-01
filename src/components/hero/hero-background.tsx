@@ -9,7 +9,7 @@ export function HeroBackground() {
             position="relative"
             overflow="hidden"
             borderRadius="panel"
-            bg="bg.accent"
+            bg="bg.card"
             w="100%"
             h={{ base: "60vh", md: "80vh" }}
         >
@@ -25,7 +25,7 @@ export function HeroBackground() {
                 aria-hidden="true"
                 position="absolute"
                 inset="0"
-                bg="bg.accent"
+                bg="bg.card"
                 opacity="0.22"
                 clipPath="polygon(58% 0, 100% 0, 100% 100%, 34% 100%)"
             />

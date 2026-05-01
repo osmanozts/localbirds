@@ -6,6 +6,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Image,
   Text,
   VStack,
   chakra
@@ -119,16 +120,13 @@ export function Navbar() {
           gap={{ base: "4", md: "6" }}
           minH={{ base: "button.height.md", md: "button.height.lg" }}
         >
-          <HStack gap="2" color="text.accent" minW={0} flex={1}>
-            <Icon as={LuBird} boxSize={{ base: "icon.md", md: "icon.lg" }} />
+          <HStack gap="2.5" minW={0} flex={1}>
             <chakra.a
               href="/"
+              display="inline-flex"
+              alignItems="center"
+              gap="2.5"
               color="text.primary"
-              fontFamily="heading"
-              fontWeight="700"
-              fontSize={{ base: "md", md: "lg" }}
-              letterSpacing="-0.02em"
-              lineHeight="1"
               textDecoration="none"
               borderRadius="interactive"
               whiteSpace="nowrap"
@@ -137,7 +135,31 @@ export function Navbar() {
                 boxShadow: "focusRing",
               }}
             >
-              Local Birds
+              <Box
+                position="relative"
+                boxSize={{ base: "36px", md: "48px" }}
+                flexShrink={0}
+              >
+                <Image
+                  src="/images/local-bird-logo.png"
+                  alt="Local Bird Logo"
+                  sizes="(max-width: 768px) 36px, 48px"
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
+
+              <Text
+                as="span"
+                fontFamily="heading"
+                fontWeight="700"
+                fontSize={{ base: "md", md: "lg" }}
+                letterSpacing="-0.02em"
+                lineHeight="1"
+              >
+                Local Birds
+              </Text>
             </chakra.a>
           </HStack>
 

@@ -1,20 +1,33 @@
 "use client";
 
-import { HStack, Icon, Text } from "@chakra-ui/react";
-import { LuBird, LuWrench } from "react-icons/lu";
+import Image from "next/image";
+import { HStack, Box } from "@chakra-ui/react";
 
 export function HeroBadge() {
     return (
         <HStack
-            px="3"
-            py="2"
+            px="2"
+            py="1.5"
             rounded="badge"
             borderWidth="1px"
             borderColor="border.inverseStrong"
             bg="bg.glass"
             backdropFilter="blur(glass)"
         >
-            <Icon as={LuBird} boxSize={{ base: "icon.sm", md: "icon.4xl" }} />
+            <Box
+                position="relative"
+                boxSize={{ base: "48px", md: "80px" }}
+            >
+                <Image
+                    src="/images/local-bird-logo.png"
+                    alt="Local Bird Logo"
+                    fill
+                    sizes="(max-width: 768px) 40px, 64px"
+                    style={{
+                        objectFit: "contain",
+                    }}
+                />
+            </Box>
         </HStack>
     );
 }
