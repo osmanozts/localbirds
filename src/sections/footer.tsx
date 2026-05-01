@@ -55,7 +55,7 @@ export function Footer() {
             </Heading>
 
             <Text color="text.muted" lineHeight="1.7">
-              localbirds.de
+              www.local-bird.de
             </Text>
 
             <Text color="text.muted" lineHeight="1.7">
@@ -102,8 +102,8 @@ export function Footer() {
 
             <Text color="text.muted" lineHeight="1.7">
               E-Mail:{" "}
-              <ULink color="text.accent" href="mailto:hallo@localbirds.de">
-                hallo@localbirds.de
+              <ULink color="text.accent" href="mailto:info@localbirds.de">
+                info@local-bird.de
               </ULink>
             </Text>
 

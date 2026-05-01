@@ -68,7 +68,7 @@ export function ContactInfo() {
               <Text color="text.primary" lineHeight="1.7">
                 E-Mail:{" "}
                 <ChakraLink
-                  href="mailto:hallo@localbirds.de"
+                  href="mailto:info@local-bird.de"
                   color="link.primary"
                   textDecoration="none"
                   borderRadius="interactive"

@@ -24,8 +24,8 @@ const companyDetails = [
   },
   {
     label: "E-Mail",
-    value: "info@localbirds.de",
-    href: "mailto:info@localbirds.de",
+    value: "info@local-bird.de",
+    href: "mailto:info@local-bird.de",
   },
 ];
 

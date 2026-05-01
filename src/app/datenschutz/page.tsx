@@ -8,7 +8,7 @@ const privacySections = [
       "Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Website ist:",
       "Local Birds KFZ Werkstatt\nHooghe Weg 31\n47906 Kempen\nDeutschland",
       "Vertreten durch die Geschäftsführung:\nSagevan Pathmanathan\nÖmer Isinibilir",
-      "E-Mail: info@localbirds.de",
+      "E-Mail: info@local-bird.de",
     ],
   },
   {
@@ -32,10 +32,12 @@ const privacySections = [
   {
     title: "4. Kontaktformular",
     text: [
-      "Wenn Sie uns über das Kontaktformular kontaktieren, verarbeiten wir die von Ihnen eingegebenen Daten. Dazu gehören insbesondere Ihr Name, Ihre E-Mail-Adresse und der Inhalt Ihrer Nachricht.",
+      "Wenn Sie uns über das Kontaktformular kontaktieren, verarbeiten wir die von Ihnen eingegebenen Daten. Dazu gehören insbesondere Ihr Name, Ihre E-Mail-Adresse, gegebenenfalls Ihre Telefonnummer sowie der Inhalt Ihrer Nachricht.",
       "Die Daten werden ausschließlich verwendet, um Ihre Anfrage zu bearbeiten, Rückfragen zu stellen und mit Ihnen Kontakt aufzunehmen.",
-      "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit einer möglichen Beauftragung, Terminvereinbarung oder sonstigen vorvertraglichen Maßnahme zusammenhängt. In allen übrigen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Bearbeitung eingehender Anfragen.",
-      "Sofern für die technische Übermittlung oder Bearbeitung des Kontaktformulars Dienstleister eingesetzt werden, erfolgt deren Einbindung nur, soweit dies für die Bearbeitung Ihrer Anfrage oder den sicheren Betrieb der Website erforderlich ist.",
+      "Für die technische Übermittlung der Kontaktformularanfrage per E-Mail nutzen wir den Dienst Resend. Anbieter ist Plus Five Five, Inc., 2261 Market Street #5039, San Francisco, CA 94114, USA.",
+      "Die über das Kontaktformular eingegebenen Daten werden zum Zweck des E-Mail-Versands an Resend übermittelt und von Resend technisch verarbeitet. Nach unserer aktuellen Konfiguration erfolgt der Versand über die Region Irland beziehungsweise eu-west-1.",
+      "Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit einer möglichen Beauftragung, Terminvereinbarung oder sonstigen vorvertraglichen Maßnahme zusammenhängt. In allen übrigen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Bearbeitung eingehender Anfragen und in einer zuverlässigen technischen Übermittlung der Kontaktanfragen.",
+      "Soweit Resend personenbezogene Daten in unserem Auftrag verarbeitet, erfolgt dies auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.",
       "Die im Kontaktformular übermittelten Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet wurde und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
     ],
   },
@@ -68,7 +70,7 @@ const privacySections = [
     title: "8. Empfänger und Dienstleister",
     text: [
       "Personenbezogene Daten können durch technische Dienstleister verarbeitet werden, die uns beim Betrieb der Website, beim Hosting, beim Versand von Kontaktformularen oder bei der E-Mail-Kommunikation unterstützen.",
-      "Zu den eingesetzten technischen Dienstleistern gehört insbesondere der Hosting-Anbieter Vercel Inc.",
+      "Zu den eingesetzten technischen Dienstleistern gehören insbesondere der Hosting-Anbieter Vercel Inc. sowie der E-Mail-Versanddienst Resend, betrieben durch Plus Five Five, Inc.",
       "Soweit erforderlich, erfolgt die Einbindung solcher Dienstleister auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.",
       "Eine Weitergabe personenbezogener Daten an Dritte erfolgt nur, wenn dies zur Bearbeitung Ihrer Anfrage erforderlich ist, eine gesetzliche Pflicht besteht oder Sie eingewilligt haben.",
     ],
@@ -77,7 +79,8 @@ const privacySections = [
     title: "9. Drittlandübermittlungen",
     text: [
       "Eine Übermittlung personenbezogener Daten in Staaten außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums findet nur statt, sofern dies zur Nutzung eingesetzter technischer Dienstleister erforderlich ist und die datenschutzrechtlichen Voraussetzungen hierfür vorliegen.",
-      "Da Vercel Inc. ein Anbieter mit Sitz in den USA ist, kann eine Verarbeitung personenbezogener Daten in den USA nicht ausgeschlossen werden.",
+      "Zu den eingesetzten Dienstleistern mit Sitz in den USA gehören insbesondere Vercel Inc. als Hosting-Anbieter sowie Plus Five Five, Inc. als Anbieter des E-Mail-Versanddienstes Resend.",
+      "Für den Versand von Kontaktformularanfragen über Resend ist nach unserer aktuellen Konfiguration die Region Irland beziehungsweise eu-west-1 ausgewählt. Eine Verarbeitung oder ein Zugriff außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums kann aufgrund der Einbindung von Anbietern mit Sitz in den USA dennoch nicht vollständig ausgeschlossen werden.",
       "Soweit hierfür erforderlich, erfolgt eine Übermittlung auf Grundlage geeigneter Garantien im Sinne der DSGVO, insbesondere auf Grundlage von Standardvertragsklauseln gemäß Art. 46 DSGVO, sofern kein Angemessenheitsbeschluss oder keine andere geeignete Rechtsgrundlage greift.",
     ],
   },
