@@ -130,7 +130,6 @@ export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
                         <Box
                             key={service.title}
                             as="button"
-                            type="button"
                             aria-label={`${service.title} anzeigen`}
                             aria-current={isActive ? "true" : undefined}
                             onClick={() => scrollToService(index)}
