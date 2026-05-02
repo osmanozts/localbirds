@@ -36,7 +36,7 @@ export function ServiceFooter() {
                     </Stack>
 
                     <ChakraLink
-                        href="/kontakt"
+                        href="/#kontakt"
                         color="link.primary"
                         fontWeight="semibold"
                         textDecoration="none"

@@ -15,6 +15,9 @@ export function Section({
       as="section"
       id={id}
       className={className}
+      w="100%"
+      maxW="container"
+      mx="auto"
       px={{ base: 6, md: 8 }}
       py={{ base: 8, md: 12 }}
       scrollMarginTop="96px"

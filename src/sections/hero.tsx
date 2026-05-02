@@ -1,16 +1,21 @@
-import { HeroBackground, HeroContent } from "@/components";
+import { HeroBackground, HeroContent, Section } from "@/components";
 import { Box } from "@chakra-ui/react";
 
 export function Hero() {
   return (
-    <Box
-      position="relative"
-      zIndex={1}
-      p={{ base: "2", md: "6" }}
-      overflow="hidden"
-    >
-      <HeroBackground />
-      <HeroContent />
-    </Box>
+    <Section id="hero">
+      <Box
+        position="relative"
+        zIndex={1}
+        overflow="hidden"
+        borderRadius="panel"
+        bg="bg.card"
+        w="100%"
+        minH={{ base: "60vh", md: "80vh" }}
+      >
+        <HeroBackground />
+        <HeroContent />
+      </Box>
+    </Section>
   );
 }

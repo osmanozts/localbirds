@@ -91,9 +91,7 @@ const customConfig = defineConfig({
       },
 
       sizes: {
-        container: {
-          DEFAULT: { value: "1240px" },
-        },
+        container: { value: "1440px" },
 
         box: {
           sm: { value: "380px" },

@@ -68,7 +68,7 @@ export function ContactForm() {
   }
 
   return (
-    <Reveal delay={400}>
+    <Reveal delay={150}>
       <form onSubmit={handleSubmit}>
         <Card.Root
           bg="bg.card"

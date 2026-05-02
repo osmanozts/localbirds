@@ -1,17 +1,21 @@
 "use client";
 
-import { Box, Stack } from '@chakra-ui/react';
-import React, { useCallback, useRef, useState } from 'react'
-import { ServiceCard } from './service-card';
-import { IconType } from 'react-icons';
+import { Box, Stack } from "@chakra-ui/react";
+import React, { useCallback, useRef, useState } from "react";
+import { IconType } from "react-icons";
+import { ServiceCard } from "./service-card";
 
-export function ServiceMobileSlider({ services }: {
-    services: {
-        icon: IconType;
-        title: string;
-        desc: string;
-    }[]
-}) {
+type Service = {
+    icon: IconType;
+    title: string;
+    desc: string;
+};
+
+type ServiceMobileSliderProps = {
+    services: Service[];
+};
+
+export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -26,14 +30,16 @@ export function ServiceMobileSlider({ services }: {
 
         if (!cards.length) return;
 
-        const sliderLeft = slider.getBoundingClientRect().left;
+        const sliderRect = slider.getBoundingClientRect();
+        const sliderCenter = sliderRect.left + sliderRect.width / 2;
 
         let closestIndex = 0;
         let closestDistance = Number.POSITIVE_INFINITY;
 
         cards.forEach((card, index) => {
-            const cardLeft = card.getBoundingClientRect().left;
-            const distance = Math.abs(cardLeft - sliderLeft);
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const distance = Math.abs(cardCenter - sliderCenter);
 
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -66,18 +72,20 @@ export function ServiceMobileSlider({ services }: {
         setActiveIndex(index);
     }, []);
 
+    if (!services.length) return null;
+
     return (
-        <Stack display={{ base: "flex", md: "none" }} gap="4">
+        <Stack display={{ base: "flex", md: "none" }} gap="4" w="100%">
             <Box
                 ref={sliderRef}
                 overflowX="auto"
                 overflowY="hidden"
                 scrollSnapType="x mandatory"
                 scrollBehavior="smooth"
+                scrollPaddingInline={{ base: "4", sm: "6" }}
                 WebkitOverflowScrolling="touch"
-                mx="-4"
+                px={{ base: "4", sm: "6" }}
                 pb="2"
-                px="4"
                 onScroll={updateActiveIndex}
                 css={{
                     scrollbarWidth: "none",
@@ -86,14 +94,20 @@ export function ServiceMobileSlider({ services }: {
                     },
                 }}
             >
-                <Stack direction="row" gap="4" align="stretch">
+                <Stack
+                    direction="row"
+                    gap="4"
+                    align="stretch"
+                    w="max-content"
+                    pr={{ base: "4", sm: "6" }}
+                >
                     {services.map((service, index) => (
                         <Box
                             key={service.title}
                             data-service-slide
                             flex="0 0 auto"
-                            w={{ base: "82vw", sm: "360px" }}
-                            maxW="360px"
+                            w={{ base: "76vw", sm: "340px" }}
+                            maxW="340px"
                             scrollSnapAlign="start"
                         >
                             <ServiceCard service={service} index={index} />
@@ -101,7 +115,6 @@ export function ServiceMobileSlider({ services }: {
                     ))}
                 </Stack>
             </Box>
-
 
             <Stack
                 direction="row"
@@ -117,6 +130,7 @@ export function ServiceMobileSlider({ services }: {
                         <Box
                             key={service.title}
                             as="button"
+                            type="button"
                             aria-label={`${service.title} anzeigen`}
                             aria-current={isActive ? "true" : undefined}
                             onClick={() => scrollToService(index)}
@@ -134,5 +148,5 @@ export function ServiceMobileSlider({ services }: {
                 })}
             </Stack>
         </Stack>
-    )
+    );
 }

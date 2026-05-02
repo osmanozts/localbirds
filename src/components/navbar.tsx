@@ -9,31 +9,55 @@ import {
   Image,
   Text,
   VStack,
-  chakra
+  chakra,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { LuBird } from "react-icons/lu";
 
-type NavLink = {
+type SectionLink = {
   label: string;
-  href: string;
+  sectionId: string;
 };
 
 type NavItemProps = {
   href: string;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
   variant?: "desktop" | "mobile";
 };
 
-const NAV_LINKS: NavLink[] = [
-  { label: "Leistungen", href: "#leistungen" },
-  { label: "Werkstatt", href: "#werkstatt" },
-  { label: "Ablauf", href: "#ablauf" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Kontakt", href: "#kontakt" },
+const SECTION_LINKS: SectionLink[] = [
+  { label: "Leistungen", sectionId: "leistungen" },
+  { label: "Werkstatt", sectionId: "werkstatt" },
+  { label: "Ablauf", sectionId: "ablauf" },
+  { label: "FAQ", sectionId: "faq" },
+  { label: "Kontakt", sectionId: "kontakt" },
 ];
+
+const getSectionHref = (sectionId: string) => `/#${sectionId}`;
+
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return false;
+
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function scrollToSection(sectionId: string) {
+  const target = document.getElementById(sectionId);
+
+  if (!target) return false;
+
+  target.scrollIntoView({
+    behavior: prefersReducedMotion() ? "auto" : "smooth",
+    block: "start",
+  });
+
+  window.history.pushState(null, "", `#${sectionId}`);
+
+  return true;
+}
 
 const NavItem: React.FC<NavItemProps> = ({
   href,
@@ -45,6 +69,7 @@ const NavItem: React.FC<NavItemProps> = ({
 
   return (
     <chakra.a
+      as={NextLink}
       href={href}
       onClick={onClick}
       display="inline-flex"
@@ -76,6 +101,8 @@ const NavItem: React.FC<NavItemProps> = ({
 };
 
 export function Navbar() {
+  const pathname = usePathname();
+
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -88,7 +115,32 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleCloseMenu = () => setOpen(false);
+  const closeMenu = () => setOpen(false);
+
+  const handleSectionClick =
+    (sectionId: string): React.MouseEventHandler<HTMLAnchorElement> =>
+      (event) => {
+        closeMenu();
+
+        /**
+         * Auf Unterseiten wie /impressum oder /datenschutz darf der Klick
+         * nicht abgefangen werden, weil die Sections dort nicht existieren.
+         * Der Link /#kontakt navigiert dann sauber zur Startseite.
+         */
+        if (pathname !== "/") {
+          return;
+        }
+
+        /**
+         * Auf der Startseite existiert die Section bereits.
+         * Daher verhindern wir eine unnötige Navigation und scrollen direkt.
+         */
+        const didScroll = scrollToSection(sectionId);
+
+        if (didScroll) {
+          event.preventDefault();
+        }
+      };
 
   return (
     <Box as="header" position="sticky" top="0" zIndex="overlay">
@@ -122,6 +174,7 @@ export function Navbar() {
         >
           <HStack gap="2.5" minW={0} flex={1}>
             <chakra.a
+              as={NextLink}
               href="/"
               display="inline-flex"
               alignItems="center"
@@ -172,8 +225,12 @@ export function Navbar() {
             flex={1}
             justifyContent="space-between"
           >
-            {NAV_LINKS.map((link) => (
-              <NavItem key={link.href} href={link.href}>
+            {SECTION_LINKS.map((link) => (
+              <NavItem
+                key={link.sectionId}
+                href={getSectionHref(link.sectionId)}
+                onClick={handleSectionClick(link.sectionId)}
+              >
                 <Text
                   as="span"
                   borderBottomWidth="1px"
@@ -216,11 +273,11 @@ export function Navbar() {
                 gap="stack.sm"
                 aria-label="Mobile Navigation"
               >
-                {NAV_LINKS.map((link) => (
+                {SECTION_LINKS.map((link) => (
                   <NavItem
-                    key={link.href}
-                    href={link.href}
-                    onClick={handleCloseMenu}
+                    key={link.sectionId}
+                    href={getSectionHref(link.sectionId)}
+                    onClick={handleSectionClick(link.sectionId)}
                     variant="mobile"
                   >
                     {link.label}

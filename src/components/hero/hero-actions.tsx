@@ -1,8 +1,64 @@
 "use client";
 
 import { Button, Flex, Link as ChakraLink } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { usePathname } from "next/navigation";
+import * as React from "react";
+
+type SectionId = "kontakt" | "leistungen";
+
+const SECTION_HREFS: Record<SectionId, `/#${SectionId}`> = {
+    kontakt: "/#kontakt",
+    leistungen: "/#leistungen",
+};
+
+function prefersReducedMotion() {
+    if (typeof window === "undefined") return false;
+
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function scrollToSection(sectionId: SectionId) {
+    const target = document.getElementById(sectionId);
+
+    if (!target) return false;
+
+    target.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+    });
+
+    window.history.pushState(null, "", `#${sectionId}`);
+
+    return true;
+}
 
 export function HeroActions() {
+    const pathname = usePathname();
+
+    const handleSectionClick =
+        (sectionId: SectionId): React.MouseEventHandler<HTMLAnchorElement> =>
+            (event) => {
+                /**
+                 * Wenn diese Komponente auf einer Unterseite gerendert wird,
+                 * darf der Klick nicht abgefangen werden.
+                 * Der Link /#kontakt soll dann normal zur Startseite navigieren.
+                 */
+                if (pathname !== "/") {
+                    return;
+                }
+
+                /**
+                 * Auf der Startseite existiert die Section bereits.
+                 * Deshalb verhindern wir eine unnötige Navigation und scrollen direkt.
+                 */
+                const didScroll = scrollToSection(sectionId);
+
+                if (didScroll) {
+                    event.preventDefault();
+                }
+            };
+
     return (
         <Flex
             gap="stack.sm"
@@ -40,7 +96,9 @@ export function HeroActions() {
                 }}
             >
                 <ChakraLink
-                    href="#kontakt"
+                    as={NextLink}
+                    href={SECTION_HREFS.kontakt}
+                    onClick={handleSectionClick("kontakt")}
                     display="inline-flex"
                     alignItems="center"
                     justifyContent="center"
@@ -70,8 +128,8 @@ export function HeroActions() {
                 px="button.px"
                 py="button.py"
                 borderRadius="button"
-                bg="button.glass"
-                color="text.inverse"
+                bg="button.inverse"
+                color="text.accent"
                 justifyContent="center"
                 _hover={{
                     bg: "bg.glassStrong",
@@ -82,7 +140,9 @@ export function HeroActions() {
                 }}
             >
                 <ChakraLink
-                    href="#leistungen"
+                    as={NextLink}
+                    href={SECTION_HREFS.leistungen}
+                    onClick={handleSectionClick("leistungen")}
                     display="inline-flex"
                     alignItems="center"
                     justifyContent="center"

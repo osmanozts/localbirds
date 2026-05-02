@@ -41,7 +41,7 @@ export function BottomLine() {
                 mx="auto"
             >
                 <Text color="text.muted" fontSize="sm" lineHeight="1.7">
-                    © 2026 Local Bird
+                    © 2026 Local Bird. Alle Rechte vorbehalten.
                 </Text>
 
                 <HStack

@@ -4,7 +4,7 @@ import { Box, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 export function Contact() {
   return (
     <Section id="kontakt" >
-      <Reveal delay={200}>
+      <Reveal delay={120}>
         <Stack
           gap={{ base: "2", md: "3" }}
           textAlign={{ base: "left", md: "center" }}

@@ -1,3 +1,5 @@
+"use client";
+
 import { Section } from "@/components";
 import {
   Box,
@@ -9,9 +11,49 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 
+type SectionId = "leistungen" | "werkstatt" | "ablauf" | "faq" | "kontakt";
+
+type FooterNavLink = {
+  label: string;
+  sectionId: SectionId;
+};
+
 type ULinkProps = React.ComponentProps<typeof ChakraLink>;
+
+const FOOTER_NAV_LINKS: FooterNavLink[] = [
+  { label: "Leistungen", sectionId: "leistungen" },
+  { label: "Werkstatt", sectionId: "werkstatt" },
+  { label: "Ablauf", sectionId: "ablauf" },
+  { label: "FAQ", sectionId: "faq" },
+  { label: "Kontakt", sectionId: "kontakt" },
+];
+
+const getSectionHref = (sectionId: SectionId) => `/#${sectionId}` as const;
+
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return false;
+
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function scrollToSection(sectionId: SectionId) {
+  const target = document.getElementById(sectionId);
+
+  if (!target) return false;
+
+  target.scrollIntoView({
+    behavior: prefersReducedMotion() ? "auto" : "smooth",
+    block: "start",
+  });
+
+  window.history.pushState(null, "", `#${sectionId}`);
+
+  return true;
+}
 
 const ULink: React.FC<ULinkProps> = ({ children, ...props }) => (
   <ChakraLink
@@ -32,12 +74,82 @@ const ULink: React.FC<ULinkProps> = ({ children, ...props }) => (
   </ChakraLink>
 );
 
+type SectionLinkProps = {
+  sectionId: SectionId;
+  children: React.ReactNode;
+  color?: ULinkProps["color"];
+};
+
+function SectionLink({ sectionId, children, color = "text.muted" }: SectionLinkProps) {
+  const pathname = usePathname();
+
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const didScroll = scrollToSection(sectionId);
+
+    if (didScroll) {
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <ULink
+      as={NextLink}
+      href={getSectionHref(sectionId)}
+      color={color}
+      onClick={handleClick}
+    >
+      {children}
+    </ULink>
+  );
+}
+
+type FooterButtonLinkProps = {
+  sectionId: SectionId;
+  children: React.ReactNode;
+};
+
+function FooterButtonLink({ sectionId, children }: FooterButtonLinkProps) {
+  const pathname = usePathname();
+
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const didScroll = scrollToSection(sectionId);
+
+    if (didScroll) {
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <ChakraLink
+      as={NextLink}
+      href={getSectionHref(sectionId)}
+      onClick={handleClick}
+      display="inline-flex"
+      alignItems="center"
+      justifyContent="center"
+      w="100%"
+      h="100%"
+      _hover={{ textDecoration: "none" }}
+    >
+      {children}
+    </ChakraLink>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <Box as="footer">
-      <Section id="footer" >
+      <Section id="footer">
         <SimpleGrid
           columns={{ base: 1, sm: 2, lg: 3 }}
           gap={{ base: "8", md: "10" }}
@@ -59,7 +171,7 @@ export function Footer() {
             </Text>
 
             <Text color="text.muted" lineHeight="1.7">
-              Musterstraße 1, 45127 Essen
+              Industriering Ost 48, Kempen
             </Text>
           </VStack>
 
@@ -74,11 +186,11 @@ export function Footer() {
               Navigation
             </Text>
 
-            <ULink color="text.muted" href="/leistungen">Leistungen</ULink>
-            <ULink color="text.muted" href="/ablauf">Ablauf</ULink>
-            <ULink color="text.muted" href="/preise">Preise</ULink>
-            <ULink color="text.muted" href="/unternehmen">Über uns</ULink>
-            <ULink color="text.muted" href="/faq">FAQ</ULink>
+            {FOOTER_NAV_LINKS.map((link) => (
+              <SectionLink key={link.sectionId} sectionId={link.sectionId}>
+                {link.label}
+              </SectionLink>
+            ))}
           </VStack>
 
           <VStack
@@ -97,98 +209,22 @@ export function Footer() {
             </Heading>
 
             <Text color="text.muted" lineHeight="1.7">
-              Telefon: <ULink color="text.accent" href="tel:+49201000000">0201&nbsp;000000</ULink>
+              Telefon:{" "}
+              <ULink color="text.accent" href="tel:+4921529809660">
+                02152&nbsp;9809660
+              </ULink>
             </Text>
 
             <Text color="text.muted" lineHeight="1.7">
               E-Mail:{" "}
-              <ULink color="text.accent" href="mailto:info@localbirds.de">
+              <ULink color="text.accent" href="mailto:info@local-bird.de">
                 info@local-bird.de
               </ULink>
             </Text>
 
             <Text color="text.muted" fontSize="sm" lineHeight="1.7">
-              Mo–Fr 08:00–18:00 · Sa 09:00–13:00
+              Mo–Fr 08:00–18:00 · Sa 08:00–13:00
             </Text>
-
-            <Stack
-              direction={{ base: "column", sm: "row" }}
-              gap="stack.sm"
-              pt="1"
-              w={{ base: "100%", sm: "auto" }}
-              flexWrap="wrap"
-            >
-              <Button
-                asChild
-                variant="outline"
-                h={{
-                  base: "button.height.md",
-                  md: "button.height.sm",
-                }}
-                w={{ base: "100%", sm: "auto" }}
-                px="button.px"
-                py="button.py"
-                borderRadius="button"
-                borderColor="border.primary"
-                color="text.accent"
-                bg="transparent"
-                justifyContent="center"
-                _hover={{
-                  borderColor: "border.strong",
-                }}
-                _focusVisible={{
-                  boxShadow: "focusRing",
-                  outline: "none",
-                }}
-              >
-                <ChakraLink
-                  href="/kontakt"
-                  display="inline-flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  w="100%"
-                  h="100%"
-                  _hover={{ textDecoration: "none" }}
-                >
-                  Frage stellen
-                </ChakraLink>
-              </Button>
-
-              <Button
-                asChild
-                h={{
-                  base: "button.height.md",
-                  md: "button.height.sm",
-                }}
-                w={{ base: "100%", sm: "auto" }}
-                px="button.px"
-                py="button.py"
-                borderRadius="button"
-                bg="button.primary"
-                color="text.inverse"
-                fontWeight="700"
-                justifyContent="center"
-                _hover={{
-                  bg: "button.strong",
-                }}
-                _focusVisible={{
-                  boxShadow: "focusRing",
-                  outline: "none",
-                }}
-              >
-                <ChakraLink
-                  href="/termin"
-                  display="inline-flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  w="100%"
-                  h="100%"
-                  _hover={{ textDecoration: "none" }}
-                >
-                  Termin buchen
-                </ChakraLink>
-              </Button>
-            </Stack>
           </VStack>
         </SimpleGrid>
       </Section>

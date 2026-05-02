@@ -1,18 +1,9 @@
-import {
-    Box
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { HeroIllustration } from "./hero-illustration";
 
 export function HeroBackground() {
     return (
-        <Box
-            position="relative"
-            overflow="hidden"
-            borderRadius="panel"
-            bg="bg.card"
-            w="100%"
-            h={{ base: "60vh", md: "80vh" }}
-        >
+        <>
             <Box
                 aria-hidden="true"
                 position="absolute"
@@ -45,6 +36,6 @@ export function HeroBackground() {
             />
 
             <HeroIllustration />
-        </Box>
+        </>
     );
 }

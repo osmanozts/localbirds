@@ -23,6 +23,7 @@ export default function RootLayout({
           <Stack bg="bg.primary">
             <Navbar />
             {children}
+            <Footer />
             <BottomLine />
           </Stack>
         </ChakraThemeProvider>

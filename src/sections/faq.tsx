@@ -172,7 +172,7 @@ export function FAQ() {
 
                     <Box mt="3">
                       <ChakraLink
-                        href="/kontakt"
+                        href="/#kontakt"
                         display="inline-flex"
                         alignItems="center"
                         justifyContent="center"
@@ -199,33 +199,7 @@ export function FAQ() {
             </Card.Root>
           </Reveal>
         ))}
-      </Box>
-
-      <Reveal delay={400}>
-        <Box
-          textAlign={{ base: "left", md: "center" }}
-          mt={{ base: "8", md: "12" }}
-        >
-          <Text color="text.muted" fontSize={{ base: "sm", md: "md" }} lineHeight="1.7">
-            Nicht fündig geworden?{" "}
-            <ChakraLink
-              href="/kontakt"
-              color="link.primary"
-              borderRadius="interactive"
-              fontWeight="600"
-              _hover={{
-                color: "link.hover",
-              }}
-              _focusVisible={{
-                outline: "none",
-                boxShadow: "focusRing",
-              }}
-            >
-              Wir sind gerne persönlich für Sie da.
-            </ChakraLink>
-          </Text>
-        </Box>
-      </Reveal>
+      </Box>yw
     </Section>
   );
 }
