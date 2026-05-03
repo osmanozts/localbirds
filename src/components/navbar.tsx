@@ -254,7 +254,7 @@ export function Navbar() {
             minW="button.height.md"
             h="button.height.md"
             borderRadius="button"
-            bg="bg.inverse"
+            bg="button.inverse"
             onClick={() => setOpen((prev) => !prev)}
           >
             <Icon as={open ? FiX : FiMenu} boxSize="icon.md" />

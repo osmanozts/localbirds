@@ -176,6 +176,8 @@ const customConfig = defineConfig({
         button: {
           primary: { value: "#88172C" },
           strong: { value: "#5F0F1F" },
+          inverse: { value: "#ffffff" },
+          muted: { value: "#6B7280" },
           glass: {
             value: "rgba(255,255,255,0.14)",
           },

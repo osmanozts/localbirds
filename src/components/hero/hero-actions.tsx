@@ -128,7 +128,7 @@ export function HeroActions() {
                 px="button.px"
                 py="button.py"
                 borderRadius="button"
-                bg="bg.inverse"
+                bg="button.inverse"
                 color="text.accent"
                 justifyContent="center"
                 _hover={{
