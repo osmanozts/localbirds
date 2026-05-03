@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { isHoliday } from "feiertagejs";
 import * as React from "react";
-import { Reveal } from "../animations";
+import { Reveal } from "../reveal";
 
 const TIME_ZONE = "Europe/Berlin";
 const REGION = "NW";
@@ -21,7 +21,6 @@ type OpeningStatus = {
   isClosedBecauseHoliday: boolean;
   label: string;
   description: string;
-  currentTimeLabel: string;
 };
 
 function getBerlinDateParts(date: Date) {
@@ -42,18 +41,6 @@ function getBerlinDateParts(date: Date) {
     hour,
     minute,
   };
-}
-
-function formatBerlinDateTime(date: Date) {
-  return new Intl.DateTimeFormat("de-DE", {
-    timeZone: TIME_ZONE,
-    weekday: "long",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
 }
 
 function getOpeningStatus(date: Date): OpeningStatus {
@@ -83,7 +70,6 @@ function getOpeningStatus(date: Date): OpeningStatus {
     minutesSinceMidnight < 13 * 60;
 
   const isWithinOpeningHours = weekdayOpen || saturdayOpen;
-  const isOpen = isWithinOpeningHours && !isPublicHoliday;
 
   if (isPublicHoliday) {
     return {
@@ -92,17 +78,16 @@ function getOpeningStatus(date: Date): OpeningStatus {
       label: "Heute ggf. geschlossen",
       description:
         "Heute ist in Nordrhein-Westfalen ein Feiertag. An Feiertagen kann geschlossen sein.",
-      currentTimeLabel: formatBerlinDateTime(date),
     };
   }
 
-  if (isOpen) {
+  if (isWithinOpeningHours) {
     return {
       isOpen: true,
       isClosedBecauseHoliday: false,
       label: "Jetzt geöffnet",
-      description: "Wir sind aktuell innerhalb der regulären Öffnungszeiten erreichbar.",
-      currentTimeLabel: formatBerlinDateTime(date),
+      description:
+        "Wir sind aktuell innerhalb der regulären Öffnungszeiten erreichbar.",
     };
   }
 
@@ -111,24 +96,43 @@ function getOpeningStatus(date: Date): OpeningStatus {
     isClosedBecauseHoliday: false,
     label: "Jetzt geschlossen",
     description: "Wir sind aktuell außerhalb der regulären Öffnungszeiten.",
-    currentTimeLabel: formatBerlinDateTime(date),
   };
 }
 
+function ContactLink(props: React.ComponentProps<typeof ChakraLink>) {
+  return (
+    <ChakraLink
+      {...props}
+      color="link.primary"
+      textDecoration="none"
+      borderRadius="interactive"
+      overflowWrap="anywhere"
+      _hover={{
+        color: "link.hover",
+        textDecoration: "none",
+      }}
+      _focusVisible={{
+        outline: "none",
+        boxShadow: "focusRing",
+      }}
+    />
+  );
+}
+
 function OpeningStatusCard() {
-  const [now, setNow] = React.useState<Date | null>(null);
+  const [status, setStatus] = React.useState<OpeningStatus | null>(null);
 
   React.useEffect(() => {
-    setNow(new Date());
+    function updateStatus() {
+      setStatus(getOpeningStatus(new Date()));
+    }
 
-    const intervalId = window.setInterval(() => {
-      setNow(new Date());
-    }, 60_000);
+    updateStatus();
+
+    const intervalId = window.setInterval(updateStatus, 60_000);
 
     return () => window.clearInterval(intervalId);
   }, []);
-
-  const status = now ? getOpeningStatus(now) : null;
 
   return (
     <Reveal delay={400}>
@@ -163,7 +167,7 @@ function OpeningStatusCard() {
             Aktueller Status
           </Heading>
 
-          <Stack align="start" gap="2">
+          <Stack align="start" gap="2" aria-live="polite">
             <Badge
               colorPalette={
                 status?.isOpen
@@ -229,47 +233,25 @@ export function ContactInfo() {
               Direkt erreichen
             </Heading>
 
-            <Stack align="start" gap="2">
+            <Stack as="address" align="start" gap="2" fontStyle="normal">
               <Text color="text.primary" lineHeight="1.7">
                 Telefon:{" "}
-                <ChakraLink
+                <ContactLink
                   href="tel:+4921529809660"
-                  color="link.primary"
-                  textDecoration="none"
-                  borderRadius="interactive"
-                  overflowWrap="anywhere"
-                  _hover={{
-                    color: "link.hover",
-                    textDecoration: "none",
-                  }}
-                  _focusVisible={{
-                    outline: "none",
-                    boxShadow: "focusRing",
-                  }}
+                  aria-label="Telefonnummer 02152 9809660 anrufen"
                 >
                   02152&nbsp;9809660
-                </ChakraLink>
+                </ContactLink>
               </Text>
 
               <Text color="text.primary" lineHeight="1.7">
                 E-Mail:{" "}
-                <ChakraLink
+                <ContactLink
                   href="mailto:info@local-bird.de"
-                  color="link.primary"
-                  textDecoration="none"
-                  borderRadius="interactive"
-                  overflowWrap="anywhere"
-                  _hover={{
-                    color: "link.hover",
-                    textDecoration: "none",
-                  }}
-                  _focusVisible={{
-                    outline: "none",
-                    boxShadow: "focusRing",
-                  }}
+                  aria-label="E-Mail an info@local-bird.de schreiben"
                 >
                   info@local-bird.de
-                </ChakraLink>
+                </ContactLink>
               </Text>
 
               <Text color="text.muted" lineHeight="1.7">
@@ -312,16 +294,24 @@ export function ContactInfo() {
               Öffnungszeiten
             </Heading>
 
-            <Stack align="start" gap="1">
-              <Text color="text.primary" lineHeight="1.7">
-                Mo–Fr: 08:00–18:00
-              </Text>
-              <Text color="text.primary" lineHeight="1.7">
-                Sa: 08:00–13:00
-              </Text>
-              <Text color="text.muted" lineHeight="1.7">
-                So: geschlossen
-              </Text>
+            <Stack as="ul" align="start" gap="1" listStyle="none" p="0" m="0">
+              <Box as="li">
+                <Text color="text.primary" lineHeight="1.7">
+                  Mo–Fr: 08:00–18:00
+                </Text>
+              </Box>
+
+              <Box as="li">
+                <Text color="text.primary" lineHeight="1.7">
+                  Sa: 08:00–13:00
+                </Text>
+              </Box>
+
+              <Box as="li">
+                <Text color="text.muted" lineHeight="1.7">
+                  So: geschlossen
+                </Text>
+              </Box>
             </Stack>
           </Box>
         </Card.Root>

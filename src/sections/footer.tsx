@@ -3,11 +3,11 @@
 import { Section } from "@/components";
 import {
   Box,
-  Button,
   Heading,
   Link as ChakraLink,
+  List,
+  ListItem,
   SimpleGrid,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -40,6 +40,26 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function focusSection(target: HTMLElement) {
+  const hadTabIndex = target.hasAttribute("tabindex");
+
+  if (!hadTabIndex) {
+    target.setAttribute("tabindex", "-1");
+  }
+
+  target.focus({ preventScroll: true });
+
+  if (!hadTabIndex) {
+    target.addEventListener(
+      "blur",
+      () => {
+        target.removeAttribute("tabindex");
+      },
+      { once: true },
+    );
+  }
+}
+
 function scrollToSection(sectionId: SectionId) {
   const target = document.getElementById(sectionId);
 
@@ -50,6 +70,7 @@ function scrollToSection(sectionId: SectionId) {
     block: "start",
   });
 
+  focusSection(target);
   window.history.pushState(null, "", `#${sectionId}`);
 
   return true;
@@ -80,7 +101,11 @@ type SectionLinkProps = {
   color?: ULinkProps["color"];
 };
 
-function SectionLink({ sectionId, children, color = "text.muted" }: SectionLinkProps) {
+function SectionLink({
+  sectionId,
+  children,
+  color = "text.muted",
+}: SectionLinkProps) {
   const pathname = usePathname();
 
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
@@ -107,48 +132,11 @@ function SectionLink({ sectionId, children, color = "text.muted" }: SectionLinkP
   );
 }
 
-type FooterButtonLinkProps = {
-  sectionId: SectionId;
-  children: React.ReactNode;
-};
-
-function FooterButtonLink({ sectionId, children }: FooterButtonLinkProps) {
-  const pathname = usePathname();
-
-  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
-    if (pathname !== "/") {
-      return;
-    }
-
-    const didScroll = scrollToSection(sectionId);
-
-    if (didScroll) {
-      event.preventDefault();
-    }
-  };
-
-  return (
-    <ChakraLink
-      as={NextLink}
-      href={getSectionHref(sectionId)}
-      onClick={handleClick}
-      display="inline-flex"
-      alignItems="center"
-      justifyContent="center"
-      w="100%"
-      h="100%"
-      _hover={{ textDecoration: "none" }}
-    >
-      {children}
-    </ChakraLink>
-  );
-}
-
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <Box as="footer">
+    <Box as="footer" aria-labelledby="footer-heading">
       <Section id="footer">
         <SimpleGrid
           columns={{ base: 1, sm: 2, lg: 3 }}
@@ -157,7 +145,8 @@ export function Footer() {
         >
           <VStack align="start" gap="stack.sm">
             <Heading
-              as="h3"
+              id="footer-heading"
+              as="h2"
               color="text.primary"
               fontSize={{ base: "xl", md: "2xl" }}
               letterSpacing="-0.01em"
@@ -167,39 +156,67 @@ export function Footer() {
             </Heading>
 
             <Text color="text.muted" lineHeight="1.7">
-              www.local-bird.de
+              <ULink
+                as={NextLink}
+                href="/"
+                color="text.muted"
+                aria-label="Zur Startseite von Local Bird"
+              >
+                www.local-bird.de
+              </ULink>
             </Text>
 
-            <Text color="text.muted" lineHeight="1.7">
-              Industriering Ost 48, Kempen
-            </Text>
-          </VStack>
-
-          <VStack align="start" gap="stack.sm" color="text.muted">
-            <Text
-              fontSize="sm"
-              fontWeight="semibold"
-              letterSpacing="0.04em"
-              textTransform="uppercase"
-              mb="1"
+            <Box
+              as="address"
+              color="text.muted"
+              lineHeight="1.7"
+              fontStyle="normal"
             >
-              Navigation
-            </Text>
-
-            {FOOTER_NAV_LINKS.map((link) => (
-              <SectionLink key={link.sectionId} sectionId={link.sectionId}>
-                {link.label}
-              </SectionLink>
-            ))}
+              Industriering Ost 48, Kempen
+            </Box>
           </VStack>
+
+          <Box as="nav" aria-label="Footer-Navigation">
+            <VStack align="start" gap="stack.sm" color="text.muted">
+              <Text
+                as="h2"
+                fontSize="sm"
+                fontWeight="semibold"
+                letterSpacing="0.04em"
+                textTransform="uppercase"
+                mb="1"
+              >
+                Navigation
+              </Text>
+
+              <List.Root
+                listStyle="none"
+                m="0"
+                p="0"
+                display="flex"
+                flexDirection="column"
+                gap="stack.sm"
+              >
+                {FOOTER_NAV_LINKS.map((link) => (
+                  <ListItem key={link.sectionId}>
+                    <SectionLink sectionId={link.sectionId}>
+                      {link.label}
+                    </SectionLink>
+                  </ListItem>
+                ))}
+              </List.Root>
+            </VStack>
+          </Box>
 
           <VStack
+            as="address"
             align="start"
             gap="stack.sm"
+            fontStyle="normal"
             gridColumn={{ base: "auto", sm: "1 / -1", lg: "auto" }}
           >
             <Heading
-              as="h4"
+              as="h2"
               color="text.primary"
               fontSize={{ base: "lg", md: "xl" }}
               letterSpacing="-0.01em"
@@ -210,20 +227,32 @@ export function Footer() {
 
             <Text color="text.muted" lineHeight="1.7">
               Telefon:{" "}
-              <ULink color="text.accent" href="tel:+4921529809660">
+              <ULink
+                color="text.accent"
+                href="tel:+4921529809660"
+                aria-label="Local Bird telefonisch kontaktieren unter 02152 9809660"
+              >
                 02152&nbsp;9809660
               </ULink>
             </Text>
 
             <Text color="text.muted" lineHeight="1.7">
               E-Mail:{" "}
-              <ULink color="text.accent" href="mailto:info@local-bird.de">
+              <ULink
+                color="text.accent"
+                href="mailto:info@local-bird.de"
+                aria-label="E-Mail an info@local-bird.de schreiben"
+              >
                 info@local-bird.de
               </ULink>
             </Text>
 
             <Text color="text.muted" fontSize="sm" lineHeight="1.7">
               Mo–Fr 08:00–18:00 · Sa 08:00–13:00
+            </Text>
+
+            <Text color="text.muted" fontSize="sm" lineHeight="1.7">
+              © {year} Local Bird
             </Text>
           </VStack>
         </SimpleGrid>

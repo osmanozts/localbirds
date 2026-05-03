@@ -1,12 +1,13 @@
 "use client";
 
-import { Reveal, Section, ServiceCard, ServiceFooter, ServiceMobileSlider } from "@/components";
 import {
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text
-} from "@chakra-ui/react";
+  Section,
+  SectionHeader,
+  ServiceCard,
+  ServiceFooter,
+  ServiceMobileSlider,
+} from "@/components";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import {
   LuCalendarCheck,
   LuCar,
@@ -49,70 +50,34 @@ const services = [
   },
 ];
 
-
-
 export function Services() {
-
-
-
-
   return (
-    <Section id="leistungen" >
-      <Stack gap={{ base: "8", md: "10", lg: "12" }} align="stretch">
-        <Reveal>
-          <Stack
-            gap="stack.md"
-            textAlign={{ base: "left", md: "center" }}
-            align={{ base: "stretch", md: "center" }}
-          >
-            <Text
-              as="p"
-              color="text.accent"
-              fontSize="sm"
-              fontWeight="semibold"
-              letterSpacing="0.08em"
-              textTransform="uppercase"
-            >
-              Leistungen
-            </Text>
+    <Section id="leistungen">
+      <SectionHeader
+        badge="Leistungen"
+        title="Zuverlässiger Werkstattservice für den Alltag."
+        description="Wartung, Reparatur und Diagnose mit klarer Beratung, sauberer Kommunikation und nachvollziehbarer Kosteneinschätzung."
+      />
 
-            <Heading
-              as="h2"
-              color="text.primary"
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-              lineHeight={{ base: "1.12", md: "1.05" }}
-              letterSpacing="-0.02em"
-              maxW="4xl"
-            >
-              Zuverlässiger Werkstattservice für den Alltag.
-            </Heading>
+      <ServiceMobileSlider services={services} />
 
-            <Text
-              color="text.muted"
-              fontSize={{ base: "md", md: "lg" }}
-              lineHeight="1.7"
-              maxW="3xl"
-            >
-              Wartung, Reparatur und Diagnose mit klarer Beratung, sauberer
-              Kommunikation und nachvollziehbarer Kosteneinschätzung.
-            </Text>
-          </Stack>
-        </Reveal>
+      <SimpleGrid
+        as="ul"
+        display={{ base: "none", md: "grid" }}
+        columns={{ md: 2, lg: 3 }}
+        gap={{ md: "5", lg: "6" }}
+        listStyle="none"
+        p="0"
+        m="0"
+      >
+        {services.map((service, index) => (
+          <Box as="li" key={service.title} h="100%">
+            <ServiceCard service={service} index={index} />
+          </Box>
+        ))}
+      </SimpleGrid>
 
-        <ServiceMobileSlider services={services} />
-
-        <SimpleGrid
-          display={{ base: "none", md: "grid" }}
-          columns={{ md: 2, lg: 3 }}
-          gap={{ md: "5", lg: "6" }}
-        >
-          {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} index={index} />
-          ))}
-        </SimpleGrid>
-
-        <ServiceFooter />
-      </Stack>
+      <ServiceFooter />
     </Section>
   );
 }

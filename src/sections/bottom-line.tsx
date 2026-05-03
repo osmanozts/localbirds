@@ -37,7 +37,7 @@ export function BottomLine() {
                 px={{ base: "5", md: "6" }}
                 py={{ base: "5", md: "6" }}
                 flexDir={{ base: "column", md: "row" }}
-                maxW="container.DEFAULT"
+                maxW="container"
                 mx="auto"
             >
                 <Text color="text.muted" fontSize="sm" lineHeight="1.7">

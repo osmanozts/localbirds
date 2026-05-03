@@ -1,5 +1,5 @@
 import React from 'react'
-import { Reveal } from '../animations'
+import { Reveal } from '../reveal'
 import { Box, Heading, Stack, Text, Link as ChakraLink, } from '@chakra-ui/react'
 
 export function ServiceFooter() {

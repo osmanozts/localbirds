@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 
 export function Hero() {
   return (
-    <Section id="hero">
+    <Section id="hero" aria-labelledby="hero-title">
       <Box
         position="relative"
         zIndex={1}

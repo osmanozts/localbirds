@@ -3,9 +3,8 @@ import { HeroIllustration } from "./hero-illustration";
 
 export function HeroBackground() {
     return (
-        <>
+        <Box aria-hidden="true" pointerEvents="none">
             <Box
-                aria-hidden="true"
                 position="absolute"
                 inset="0"
                 bg="overlay"
@@ -13,7 +12,6 @@ export function HeroBackground() {
             />
 
             <Box
-                aria-hidden="true"
                 position="absolute"
                 inset="0"
                 bg="bg.card"
@@ -22,7 +20,6 @@ export function HeroBackground() {
             />
 
             <Box
-                aria-hidden="true"
                 position="absolute"
                 top={{ base: "12", md: "16" }}
                 right={{ base: "-20", md: "8" }}
@@ -36,6 +33,6 @@ export function HeroBackground() {
             />
 
             <HeroIllustration />
-        </>
+        </Box>
     );
 }

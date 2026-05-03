@@ -148,7 +148,6 @@ export default function Datenschutz() {
           align={{ base: "stretch", lg: "start" }}
           justify="space-between"
           gap={{ base: "10", lg: "16" }}
-          maxW="container.DEFAULT"
           mx="auto"
         >
           <VStack align="start" gap="6" maxW="box.lg">

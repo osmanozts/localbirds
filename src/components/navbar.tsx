@@ -161,7 +161,7 @@ export function Navbar() {
       <Box
         position="relative"
         zIndex={1}
-        maxW="container.DEFAULT"
+        maxW="container"
         mx="auto"
         px={{ base: "4", md: "6" }}
         py={{ base: "2", md: "2" }}
@@ -172,22 +172,19 @@ export function Navbar() {
           gap={{ base: "4", md: "6" }}
           minH={{ base: "button.height.md", md: "button.height.lg" }}
         >
-          <HStack gap="2.5" minW={0} flex={1}>
-            <chakra.a
-              as={NextLink}
-              href="/"
-              display="inline-flex"
-              alignItems="center"
-              gap="2.5"
-              color="text.primary"
-              textDecoration="none"
-              borderRadius="interactive"
-              whiteSpace="nowrap"
-              _focusVisible={{
-                outline: "none",
-                boxShadow: "focusRing",
-              }}
-            >
+          <chakra.a
+            as={NextLink}
+            href="/"
+            color="text.primary"
+            textDecoration="none"
+            borderRadius="interactive"
+            whiteSpace="nowrap"
+            _focusVisible={{
+              outline: "none",
+              boxShadow: "focusRing",
+            }}
+          >
+            <HStack alignItems="center" gap="2.5">
               <Box
                 position="relative"
                 boxSize={{ base: "36px", md: "48px" }}
@@ -213,8 +210,8 @@ export function Navbar() {
               >
                 Local Birds
               </Text>
-            </chakra.a>
-          </HStack>
+            </HStack>
+          </chakra.a>
 
           <HStack
             as="nav"
@@ -222,7 +219,7 @@ export function Navbar() {
             gap={{ lg: "2", xl: "4" }}
             fontSize="sm"
             aria-label="Hauptnavigation"
-            flex={1}
+            flex={0.8}
             justifyContent="space-between"
           >
             {SECTION_LINKS.map((link) => (
@@ -233,7 +230,8 @@ export function Navbar() {
               >
                 <Text
                   as="span"
-                  borderBottomWidth="1px"
+                  py={1}
+                  borderBottomWidth="2px"
                   borderColor="transparent"
                   transition="border-color 0.2s ease"
                   _hover={{

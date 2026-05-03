@@ -2,7 +2,7 @@
 
 import { Box, Stack } from "@chakra-ui/react";
 import React, { useCallback, useRef, useState } from "react";
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
 import { ServiceCard } from "./service-card";
 
 type Service = {
@@ -75,9 +75,17 @@ export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
     if (!services.length) return null;
 
     return (
-        <Stack display={{ base: "flex", md: "none" }} gap="4" w="100%">
+        <Stack
+            display={{ base: "flex", md: "none" }}
+            gap="4"
+            w="100%"
+            aria-label="Leistungen"
+        >
             <Box
                 ref={sliderRef}
+                role="region"
+                aria-label="Leistungen horizontal durchscrollen"
+                tabIndex={0}
                 overflowX="auto"
                 overflowY="hidden"
                 scrollSnapType="x mandatory"
@@ -87,6 +95,10 @@ export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
                 px={{ base: "4", sm: "6" }}
                 pb="2"
                 onScroll={updateActiveIndex}
+                _focusVisible={{
+                    outline: "none",
+                    boxShadow: "focusRing",
+                }}
                 css={{
                     scrollbarWidth: "none",
                     "&::-webkit-scrollbar": {
@@ -95,15 +107,20 @@ export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
                 }}
             >
                 <Stack
+                    as="ul"
                     direction="row"
                     gap="4"
                     align="stretch"
                     w="max-content"
                     pr={{ base: "4", sm: "6" }}
+                    listStyle="none"
+                    p="0"
+                    m="0"
                 >
                     {services.map((service, index) => (
                         <Box
                             key={service.title}
+                            as="li"
                             data-service-slide
                             flex="0 0 auto"
                             w={{ base: "76vw", sm: "340px" }}
@@ -117,11 +134,12 @@ export function ServiceMobileSlider({ services }: ServiceMobileSliderProps) {
             </Box>
 
             <Stack
+                as="nav"
                 direction="row"
                 gap="2"
                 justify="center"
                 align="center"
-                aria-label="Leistungen Navigation"
+                aria-label="Leistungen auswählen"
             >
                 {services.map((service, index) => {
                     const isActive = activeIndex === index;

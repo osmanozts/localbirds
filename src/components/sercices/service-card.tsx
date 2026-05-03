@@ -1,15 +1,9 @@
 "use client";
 
 import { Reveal } from "@/components";
-import {
-    Box,
-    Card,
-    Heading,
-    Icon,
-    Stack,
-    Text
-} from "@chakra-ui/react";
+import { Box, Card, Heading, Icon, Stack, Text } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
+import type { ElementType } from "react";
 
 type Service = {
     icon: IconType;
@@ -17,16 +11,21 @@ type Service = {
     desc: string;
 };
 
+type ServiceCardProps = {
+    service: Service;
+    index?: number;
+    as?: ElementType;
+};
+
 export function ServiceCard({
     service,
     index = 0,
-}: {
-    service: Service;
-    index?: number;
-}) {
+    as = "article",
+}: ServiceCardProps) {
     return (
         <Reveal delay={Math.min(index * 70, 280)}>
             <Card.Root
+                as={as}
                 bg="bg.card"
                 rounded="card"
                 boxShadow="card"
@@ -48,6 +47,7 @@ export function ServiceCard({
                             display="grid"
                             placeItems="center"
                             flexShrink={0}
+                            aria-hidden="true"
                         >
                             <Icon as={service.icon} boxSize="icon.md" />
                         </Box>

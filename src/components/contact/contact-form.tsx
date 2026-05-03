@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import {
   Box,
   Button,
@@ -12,12 +12,12 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { Reveal } from "../animations";
+import { Reveal } from "../reveal";
 
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,7 +34,7 @@ export function ContactForm() {
       email: formData.get("email"),
       phone: formData.get("phone"),
       message: formData.get("message"),
-      company: formData.get("company"), // Honeypot gegen einfache Bots
+      company: formData.get("company"),
     };
 
     try {
@@ -50,7 +50,7 @@ export function ContactForm() {
 
       if (!response.ok) {
         throw new Error(
-          result.error || "Die Nachricht konnte nicht gesendet werden."
+          result.error || "Die Nachricht konnte nicht gesendet werden.",
         );
       }
 
@@ -60,7 +60,7 @@ export function ContactForm() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "Die Nachricht konnte nicht gesendet werden."
+          : "Die Nachricht konnte nicht gesendet werden.",
       );
     } finally {
       setIsSubmitting(false);
@@ -91,6 +91,7 @@ export function ContactForm() {
           <Box p={{ base: "5", md: "6" }}>
             <Heading
               as="h3"
+              id="contact-form-heading"
               color="text.primary"
               fontSize={{ base: "xl", md: "2xl" }}
               lineHeight="1.2"
@@ -100,14 +101,21 @@ export function ContactForm() {
               Nachricht senden
             </Heading>
 
-            <Stack gap={{ base: "4", md: "5" }} align="stretch">
+            <Stack
+              gap={{ base: "4", md: "5" }}
+              align="stretch"
+              aria-labelledby="contact-form-heading"
+            >
               <Field.Root required>
-                <Field.Label color="text.primary">
+                <Field.Label htmlFor="contact-name" color="text.primary">
                   Name <Field.RequiredIndicator color="text.accent" />
                 </Field.Label>
 
                 <Input
+                  id="contact-name"
                   name="name"
+                  type="text"
+                  autoComplete="name"
                   placeholder="Ihr Name"
                   h="input.height.md"
                   px="input.px"
@@ -132,13 +140,15 @@ export function ContactForm() {
               </Field.Root>
 
               <Field.Root required>
-                <Field.Label color="text.primary">
+                <Field.Label htmlFor="contact-email" color="text.primary">
                   E-Mail <Field.RequiredIndicator color="text.accent" />
                 </Field.Label>
 
                 <Input
+                  id="contact-email"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   placeholder="name@mail.de"
                   h="input.height.md"
                   px="input.px"
@@ -163,11 +173,15 @@ export function ContactForm() {
               </Field.Root>
 
               <Field.Root>
-                <Field.Label color="text.primary">Telefon</Field.Label>
+                <Field.Label htmlFor="contact-phone" color="text.primary">
+                  Telefon
+                </Field.Label>
 
                 <Input
+                  id="contact-phone"
                   name="phone"
                   type="tel"
+                  autoComplete="tel"
                   placeholder="0151 123456"
                   h="input.height.md"
                   px="input.px"
@@ -191,11 +205,12 @@ export function ContactForm() {
               </Field.Root>
 
               <Field.Root required>
-                <Field.Label color="text.primary">
+                <Field.Label htmlFor="contact-message" color="text.primary">
                   Ihr Anliegen <Field.RequiredIndicator color="text.accent" />
                 </Field.Label>
 
                 <Textarea
+                  id="contact-message"
                   name="message"
                   placeholder="Wie können wir helfen?"
                   rows={5}
@@ -222,22 +237,42 @@ export function ContactForm() {
                 </Field.HelperText>
               </Field.Root>
 
-              {/* Honeypot: unsichtbar für echte Nutzer, Bots füllen es oft aus */}
-              <Input
-                name="company"
-                display="none"
-                tabIndex={-1}
-                autoComplete="off"
-              />
+              <Box
+                position="absolute"
+                w="1px"
+                h="1px"
+                overflow="hidden"
+                clip="rect(0 0 0 0)"
+                whiteSpace="nowrap"
+              >
+                <label htmlFor="contact-company">Firma</label>
+                <Input
+                  id="contact-company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </Box>
 
               {successMessage && (
-                <Text color="green.500" fontSize="sm" fontWeight="600">
+                <Text
+                  role="status"
+                  color="green.500"
+                  fontSize="sm"
+                  fontWeight="600"
+                >
                   {successMessage}
                 </Text>
               )}
 
               {errorMessage && (
-                <Text color="red.500" fontSize="sm" fontWeight="600">
+                <Text
+                  role="alert"
+                  color="red.500"
+                  fontSize="sm"
+                  fontWeight="600"
+                >
                   {errorMessage}
                 </Text>
               )}
@@ -271,8 +306,8 @@ export function ContactForm() {
               </Button>
 
               <Text color="text.muted" fontSize="xs" lineHeight="1.6">
-                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß DSGVO
-                zu.
+                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß
+                DSGVO zu.
               </Text>
             </Stack>
           </Box>

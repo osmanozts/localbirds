@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { HStack, Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 
 export function HeroBadge() {
     return (
         <HStack
+            aria-hidden="true"
             px="2"
             py="1.5"
             rounded="badge"
@@ -14,15 +15,12 @@ export function HeroBadge() {
             bg="bg.glass"
             backdropFilter="blur(glass)"
         >
-            <Box
-                position="relative"
-                boxSize={{ base: "48px", md: "80px" }}
-            >
+            <Box position="relative" boxSize={{ base: "48px", md: "80px" }}>
                 <Image
                     src="/images/local-bird-logo.png"
-                    alt="Local Bird Logo"
+                    alt=""
                     fill
-                    sizes="(max-width: 768px) 40px, 64px"
+                    sizes="(max-width: 768px) 48px, 80px"
                     style={{
                         objectFit: "contain",
                     }}

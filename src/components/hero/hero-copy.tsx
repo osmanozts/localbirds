@@ -6,7 +6,7 @@ export function HeroCopy() {
         <Box
             maxW={{
                 base: "100%",
-                md: "container.DEFAULT",
+                md: "container",
             }}
             mb={{ base: "2" }}
         >
@@ -19,6 +19,7 @@ export function HeroCopy() {
                 <HeroBadge />
 
                 <Heading
+                    id="hero-title"
                     as="h1"
                     fontSize={{
                         base: "clamp(2rem, 11vw, 3.5rem)",

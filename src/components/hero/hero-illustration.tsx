@@ -13,6 +13,13 @@ export function HeroIllustration() {
             maxW={{ base: "78%", md: "72%" }}
             opacity={{ base: "0.72", md: "0.95" }}
             pointerEvents="none"
+            css={{
+                "@media (prefers-reduced-motion: reduce)": {
+                    "& animate, & animateTransform": {
+                        display: "none",
+                    },
+                },
+            }}
         >
             <chakra.svg
                 viewBox="0 0 860 480"
@@ -20,6 +27,7 @@ export function HeroIllustration() {
                 w="100%"
                 h="auto"
                 role="presentation"
+                focusable={false}
             >
                 <defs>
                     <radialGradient id="hero-lamp-glow" cx="50%" cy="0%" r="75%">
